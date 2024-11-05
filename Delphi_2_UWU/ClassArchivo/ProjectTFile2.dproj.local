@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/05/02 12:44:21.000.198,=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/05/02 12:44:31.000.402,=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/05/02 12:45:30.000.588,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitClassTFile2.pas</Transaction>
+    <Transaction>2024/05/02 12:45:41.000.244,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitFormTFile2.dfm</Transaction>
+    <Transaction>2024/05/02 12:45:41.000.244,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitFormTFile2.pas</Transaction>
+    <Transaction>2024/05/02 12:45:47.000.370,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\ProjectTFile2.dproj</Transaction>
+    <Transaction>2024/05/02 13:00:20.000.731,=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitClassCadena.pas</Transaction>
+    <Transaction>2024/05/08 14:36:29.000.660,C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\Class File 2.0\UnitClassCadena.pas=</Transaction>
+    <Transaction>2024/05/08 14:37:33.000.957,=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\Class File 2.0\UnitClassCadena.pas</Transaction>
+    <Transaction>2024/10/31 20:03:15.214,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UClasCadena2.pas</Transaction>
+    <Transaction>2024/10/31 20:05:01.852,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UnitClasNumero.pas</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
+    <File Path="UnitClassTFile2.pas"/>
+    <File Path="UnitFormTFile2.pas"/>
+    <File Path="UnitFormTFile2.dfm"/>
+    <File Path="UClasCadena2.pas"/>
+    <File Path="UnitClasNumero.pas"/>
+  </ProjectSortOrder>
+</BorlandProject>

@@ -1,0 +1,15 @@
+program ProjectVect;
+
+uses
+  Vcl.Forms,
+  FormVect in 'FormVect.pas' {Form1},
+  ClassVect in 'ClassVect.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.Run;
+end.
