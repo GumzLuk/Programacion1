@@ -1,8 +1,0 @@
-program ConsolaPr;
-
-uses
-  System.SysUtils,
-
-begin
-  Readln;
-end.

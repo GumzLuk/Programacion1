@@ -1,0 +1,213 @@
+unit UClasNiveles;
+
+interface
+
+ uses SysUtils,Graphics,UClassMuro,UClassTFigura;
+
+Const
+ MAXF = 20;
+ MAXC = 30;
+ Niveles : Array[1..2] of array [1..20]of String[30] =
+ (('111111111111111111111111111111',
+   '100000000000001000000000000001',
+   '100111110111101000000000000001',
+   '100100000000001000000000000001',
+   '100100001000001000000000000001',
+   '100100001000001000000000000001',
+   '100100001000001000000000000001',
+   '100101111111101000000000000001',
+   '100101000000001000000000000001',
+   '100101001002001000000000000001',
+   '100101001000001000000000000001',
+   '100101111111101000000000000001',
+   '100100000000001000000000000001',
+   '100100301000001111111111111111',
+   '100100001000000000000002200001',
+   '100100001000000000000000000101',
+   '100111111111111111111111111101',
+   '100000000000000000000000200001',
+   '100000000000000002000000000001',
+   '111111111111111111111111111111'
+  ),
+  ('111111111111111111111111111111',
+   '110000000000001000000000000001',
+   '100111110111101000000000000001',
+   '100100000000001000000000000001',
+   '100100001000001000000000000001',
+   '100100001000001000000000000001',
+   '100100001000001000000000000001',
+   '100101111111101000000000000001',
+   '100101000000001111111111111111',
+   '100101001002001111111111111111',
+   '100101001000001111111111111111',
+   '100101111111101111111111111111',
+   '100100000000001111111111111111',
+   '100100010000011111111111111111',
+   '100100000100000000000000220001',
+   '100100001000000000000000000101',
+   '100111111111111111111111111101',
+   '100000000000000000000000200001',
+   '130000000000000002000000000001',
+   '111111111111111111111111111111'
+  )) ;
+
+  Type
+    TMapa = Class
+      private
+        elementos : array[1..20,1..30] of byte;
+        NroFilas : Word;
+        NroColumnas : Word;
+        Xmapa : Word;
+        Ymapa : Word;
+        Muros : TMuro;
+        Figura : TFigura;
+      public
+        XFigura,YFigura : Word;
+        constructor create();
+        constructor createNivel(NroNivel:byte;Xmapa,Ymapa:Word);
+//procedimientos________________________________________________________________
+        procedure CargarNivel(NroNivel:byte;Xmapa,Ymapa:Word);
+        procedure CargarObjetos();
+        procedure DibujarNivel(pantalla:TCanvas);
+        procedure MoverFigura(direccion:Word);
+
+//funciones_____________________________________________________________________
+        function ObtElement(posF,posC:Word):byte;
+        function Filas():Word;
+        function Columnas():Word;
+        function ObtNroMuros():Word;
+        function ObtFigura():TFigura;
+    End;
+implementation
+
+{ TMapa }
+constructor TMapa.create;
+begin
+ Self.NroFilas := MAXF;
+ Self.NroColumnas := MAXC;
+ Self.Muros := TMuro.Create;
+ Self.Figura := TFigura.Create;
+ Self.XFigura := 1;
+ self.YFigura := 1;
+end;
+
+constructor TMapa.createNivel(NroNivel:byte;Xmapa,Ymapa:Word);
+begin
+ CargarNivel(NroNivel,Xmapa,Ymapa);
+ CargarObjetos;
+end;
+
+//procedimientos________________________________________________________________
+
+procedure TMapa.CargarNivel(NroNivel:byte;Xmapa,Ymapa:Word);
+ var
+   i,j : Word;
+begin
+ Self.Xmapa := Xmapa;
+ Self.Ymapa := Ymapa;
+ for i := 1 to NroFilas do
+   begin
+     for j := 1 to NroColumnas do
+        begin
+          elementos[i,j] := StrToInt( niveles[NroNivel][i,j]);
+        end;
+   end;
+end;
+
+procedure TMapa.CargarObjetos;
+ var
+   i,j: Word;
+   x,y,posM : Word;
+begin
+ muros.dimensionar(Self.ObtNroMuros);
+ muros.CargarImagenGeneral('MuroA.bmp');
+ muros.cargarImagen;
+ Figura.cargarImagen('gokuAbajo.bmp');
+ y := Self.Ymapa;
+ posM := 1;
+ for i := 1 to NroFilas do
+  begin
+   x := self.Xmapa;
+    for j := 1 to NroColumnas do
+       begin
+         if(elementos[i,j] = 1)then
+          begin
+            muros.cambiarXYElemento(posM,x,y);
+            posM := posM + 1;
+          end;
+         if(elementos[i,j] = 3)then
+           begin
+             self.XFigura := x;
+             self.YFigura := y;
+           end;
+         x := x + 32;
+       end;
+   y := y + 32;
+  end;
+ Figura.CambiarPosicion(XFigura,YFigura);
+end;
+
+procedure TMapa.DibujarNivel(pantalla : TCanvas);
+begin
+ muros.dibujar(pantalla);
+ Figura.dibujar(pantalla);
+end;
+
+procedure TMapa.MoverFigura(direccion: Word);
+begin
+  case direccion of
+   37 : begin
+        //  if not(Figura.choqueMuroIzquierda(Figura.x-velocidad,Muros))then
+           Figura.x := Figura.x - velocidad;
+        end;
+   38 : begin  Figura.y := Figura.y - velocidad; end;
+   39 : begin
+         if not(Figura.choqueMuroDerecha(2,Muros))then
+          Figura.x := Figura.x + velocidad;
+        end;
+   40 : begin Figura.y := Figura.y + velocidad; end;
+  end;
+end;
+
+//funciones_____________________________________________________________________
+
+function TMapa.ObtElement(posF,posC: Word): byte;
+begin
+ if(posF > 0)AND(posF <= NroFilas)AND(posC > 0)AND(posC <= NroColumnas)then
+  begin
+    result := elementos[posF,posC];
+  end;
+end;
+
+function TMapa.Filas: Word;
+begin
+ Result := NroFilas;
+end;
+
+function TMapa.Columnas: Word;
+begin
+ Result := NroColumnas;
+end;
+
+function TMapa.ObtNroMuros: Word;
+ var
+   nroM,i,j:Word;
+begin
+ nroM := 0;
+  for i := 1 to NroFilas do
+    begin
+      for j := 1 to NroColumnas do
+        begin
+          if(elementos[i,j] = 1)then
+            nroM := nroM + 1;
+        end;
+    end;
+ Result := nroM;
+end;
+
+function TMapa.ObtFigura: TFigura;
+begin
+ Result := Figura;
+end;
+
+end.

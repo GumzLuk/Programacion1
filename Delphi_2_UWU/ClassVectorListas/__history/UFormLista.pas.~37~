@@ -1,0 +1,88 @@
+unit UFormLista;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, UCVectorLista, Vcl.Menus,
+  Vcl.StdCtrls ;
+
+type
+  TForm1 = class(TForm)
+    NotasGrid: TStringGrid;
+    MainMenu1: TMainMenu;
+    Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Edit5: TEdit;
+    Button1: TButton;
+    Registro: TLabel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Menu1: TMenuItem;
+    procedure FormCreate(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+    vectNotas : vector;
+  public
+    { Public declarations }
+    procedure MostrarEnPantalla();
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.Button1Click(Sender: TObject);
+ var
+  ListaNot : Lista;
+  Registro : Cardinal;
+  Nombre,Materia : String;
+  Semestre : byte;
+  nota : Real;
+begin
+ vectNotas.dimensionar(vectNotas.getDimension+1);
+ ListaNot.Registro := StrToint(Edit1.Text);
+ ListaNot.Nombre := Edit2.Text;
+ ListaNot.Materia := Edit3.Text;
+ ListaNot.Semestre := StrToInt(Edit4.Text);
+ ListaNot.nota := StrToFloat(Edit5.Text);
+
+ MostrarEnPantalla;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+ NotasGrid.Cells[0,0] := 'Nro';
+ NotasGrid.Cells[1,0] := 'Registro';
+ NotasGrid.Cells[2,0] := 'Nombre';
+ NotasGrid.Cells[3,0] := 'Materia';
+ NotasGrid.Cells[4,0] := 'Semestre';
+ NotasGrid.Cells[5,0] := 'Nota';
+ vectNotas := vector.Create;
+end;
+
+procedure TForm1.MostrarEnPantalla;
+var
+ i : Word;
+begin
+ NotasGrid.RowCount := vectNotas.getDimension + 1;
+  for i := 1 to vectNotas.getDimension do
+   begin
+     NotasGrid.Cells[0,i] := IntToStr(i);
+     NotasGrid.Cells[1,i] := IntToStr(vectNotas.getElement(i).Registro);
+     NotasGrid.Cells[2,i] := vectNotas.getElement(i).Nombre;
+     NotasGrid.Cells[3,i] := vectNotas.getElement(i).Materia;
+     NotasGrid.Cells[4,i] := IntToStr(vectNotas.getElement(i).Semestre);
+     NotasGrid.Cells[5,i] := FloatToStr(vectNotas.getElement(i).Nota);
+   end;
+end;
+
+end.

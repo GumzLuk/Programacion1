@@ -1,0 +1,201 @@
+unit UClassMatrizChars;
+
+interface
+
+ uses SysUtils,Dialogs;
+
+ const
+   MAXF=124;
+   MAXC=124;
+
+  Type
+    MatrizChar = Class
+      private
+        NroFilas:Word;
+        NroColumnas:Word;
+        Celdas:array[1..MAXF,1..MAXC] of char;
+      public
+        procedure CargarUnoAUno(f,c:Word);
+        procedure CargaRandom(f,c:Word);
+        procedure Redimensionar(f,c:Word);
+        procedure ModCell(f,c:Word;chr:Char);
+        function GetCelda(f,c:Word):Char;
+        function Filas():Word;
+        function Columnas():Word;
+
+       {Ejercicios}
+       function GetCharLeft(f,c,Lpal:Word):String;
+       function GetCharRight(f, c: Word;Lpal:Word): String;
+       function GetCharUp(f, c: Word; Lpal:Word): String;
+       function GetCharDown(f, c : Word;Lpal:Word): String;
+
+       function SopaDeLetras(Pal:String):Boolean;
+
+
+    End;
+implementation
+
+{ MatrizChar }
+
+procedure MatrizChar.CargaRandom(f, c: Word);
+var
+  i,s,j:Word;
+
+begin
+Redimensionar(f,c);
+ for i := 1 to Filas do
+   begin
+     for j := 1 to Columnas do
+       begin
+         s:=97+Random(122-97+1);
+         Celdas[i,j] := chr(s);
+       end;
+   end;
+end;
+
+procedure MatrizChar.CargarUnoAUno(f,c:Word);
+var
+  i,j:Word;
+  chr:char;
+  pAux:String;
+begin
+Redimensionar(f,c);
+pAux:='';
+ for i := 1 to NroFilas do
+   begin
+     for j := 1 to NroColumnas do
+       begin
+         pAux:=InputBox('Char','M [ '+IntToStr(i)+','+IntToSTr(j)+' ]','');
+         chr:=pAux[1];
+         Celdas[i,j]:=chr;
+       end;
+   end;
+end;
+
+function MatrizChar.Columnas: Word;
+begin
+Result:=NroColumnas;
+end;
+
+
+function MatrizChar.Filas: Word;
+begin
+Result:=NroFilas;
+end;
+
+function MatrizChar.GetCelda(f, c: Word): Char;
+begin
+if(f>0)AND(f<=NroFilas)AND(c>0)AND(c<=NroColumnas)Then
+  Result:=Celdas[f,c]
+     else raise Exception.Create('Error de posicion');
+end;
+
+procedure MatrizChar.ModCell(f, c: Word;chr:Char);
+begin
+if(f>0)AND(f<=NroFilas)AND(c>0)AND(c<=NroColumnas)Then
+   Celdas[f,c]:=chr
+     else raise Exception.Create('Error de posicion');
+end;
+
+procedure MatrizChar.Redimensionar(f, c: Word);
+begin
+if(f>0)AND(f<=MAXF)AND(c>0)AND(c<=MAXC)then
+ begin
+  NroFilas:=f;
+  NroColumnas:=c;
+ end
+   else raise Exception.Create('Error de posicion');
+end;
+
+{Ejercicio existe palabra}
+
+function MatrizChar.GetCharLeft(f, c: Word; Lpal:Word): String;
+var
+  pal:String;
+  j:Word;
+begin
+pal:='';
+ for j := 1 to Lpal do
+  begin
+    pal:=pal+GetCelda(f,c);
+    Dec(c)
+  end;
+Result:=pal;
+end;
+
+function MatrizChar.GetCharRight(f, c: Word;Lpal:Word): String;
+var
+  pal:String;
+  j:Word;
+begin
+pal:='';
+ for j := 1 to Lpal do
+  begin
+    pal:=pal+GetCelda(f,c);
+    Inc(c)
+  end;
+Result:=pal;
+end;
+
+function MatrizChar.GetCharUp(f, c: Word; Lpal:Word): String;
+var
+  pal:String;
+  i:Word;
+begin
+pal:='';
+ for i := 1 to Lpal do
+  begin
+    pal:=pal+GetCelda(f,c);
+    Dec(f);
+  end;
+Result:=pal;
+end;
+
+function MatrizChar.GetCharDown(f, c : Word;Lpal:Word): String;
+var
+  pal:String;
+  i:Word;
+begin
+pal:='';
+ for i := 1 to LPal do
+  begin
+    pal:=pal+GetCelda(f,c);
+    Inc(f)
+  end;
+Result:=pal;
+end;
+
+function MatrizChar.SopaDeLetras(Pal: String): Boolean;
+var
+  i,j,Lpal:Word;
+  k:Boolean;
+begin
+k:=False;
+i:=1;
+LPal:=Length(Pal);
+ While (i<=Filas)AND NOT(k)do
+   begin
+    j:=1;
+     while(j<=Columnas)AND NOT(k)do
+       begin
+         if(Celdas[i,j] = Pal[1])then
+           begin
+             if(j>=NroColumnas)AND(GetCharLeft(i,j,Lpal) = Pal)Then
+                k:=True;
+             if(NroColumnas - j >= LPal-1)AND(GetCharRight(i,j,LPal) = Pal)Then
+                k:=True;
+             if(i >= NroFilas)AND(GetCharUp(i,j,LPal) = Pal)Then
+                k:=True;
+             if(NroFilas - i >= Lpal-1)AND(GetCharDown(i,j,LPal) = Pal)Then
+                k:=True;
+           end;
+         j:=j+1;
+       end;
+     i:=i+1;
+   end;
+ Result:=k;
+end;
+
+{................................}
+end.
+

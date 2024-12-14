@@ -3,9 +3,10 @@
 	<Transactions>
     <Transaction>2024/08/24 19:03:13.000.190,=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/08/24 19:03:21.000.784,=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2024/08/24 20:08:20.000.536,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\UnitClasNumero.pas</Transaction>
-    <Transaction>2024/08/24 20:08:30.000.677,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\UFormNumero.dfm</Transaction>
-    <Transaction>2024/08/24 20:08:30.000.677,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\UFormNumero.pas</Transaction>
-    <Transaction>2024/08/24 20:08:36.000.849,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\ProjectNumero.dproj</Transaction>
+    <Transaction>2024/08/24 20:08:20.000.536,C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\UnitClasNumero.pas=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/08/24 20:08:30.000.677,C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\UFormNumero.pas=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/08/24 20:08:30.000.677,C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\UFormNumero.dfm=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2024/08/24 20:08:36.000.849,C:\Users\grizzly\Documents\programas\Delphi_2_UWU\ClaseNumero\ProjectNumero.dproj=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/12/08 18:48:13.000.382,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClaseNumero\UnitClasNumero.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClaseNumero\UCNumero.pas</Transaction>
   </Transactions>
 </BorlandProject>

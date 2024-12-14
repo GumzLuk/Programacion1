@@ -1,0 +1,18 @@
+program ProjectSokoban;
+
+uses
+  Vcl.Forms,
+  UFormSokoban in 'UFormSokoban.pas' {FormSOKOBAN},
+  UCLFigura in 'UCLFigura.pas',
+  UCLNiveles in 'UCLNiveles.pas',
+  UCLMuro in 'UCLMuro.pas',
+  UCLCaja in 'UCLCaja.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFormSOKOBAN, FormSOKOBAN);
+  Application.Run;
+end.

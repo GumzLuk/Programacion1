@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls,UnitClasNumero,Math;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls,UCNumero,Math;
 
 type
   TForm1 = class(TForm)
@@ -58,6 +58,13 @@ type
     elimDigRepetSolo11: TMenuItem;
     ElimSubNumero1: TMenuItem;
     transfRealAEntero1: TMenuItem;
+    transfRealAEnteroCopy1: TMenuItem;
+    Button1: TButton;
+    Button2: TButton;
+    funciones1: TMenuItem;
+    ieneExtrasLIT1: TMenuItem;
+    LiteralExtra1: TMenuItem;
+    oLiteral2: TMenuItem;
     procedure Numero2Click(Sender: TObject);
     procedure Obtenervalor1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -103,6 +110,12 @@ type
     procedure elimDigRepetSolo11Click(Sender: TObject);
     procedure ElimSubNumero1Click(Sender: TObject);
     procedure transfRealAEntero1Click(Sender: TObject);
+    procedure transfRealAEnteroCopy1Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure ieneExtrasLIT1Click(Sender: TObject);
+    procedure LiteralExtra1Click(Sender: TObject);
+    procedure oLiteral2Click(Sender: TObject);
   private
     { Private declarations }
      objN : Numero;
@@ -138,6 +151,19 @@ begin
   ShowMessage(IntToStr(objN.getPosDDig(dig)));
 end;
 
+procedure TForm1.Button1Click(Sender: TObject);
+ var
+  Nu : Cardinal;
+begin
+ Nu := StrToInt(Edit1.Text);
+ objN.setValor(Nu);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+ Edit2.Text := IntToStr(ObjN.getValor);
+end;
+
 procedure TForm1.CantDCeros1Click(Sender: TObject);
 begin
  ShowMessage(IntToStr(objN.CantDCeros));
@@ -150,7 +176,7 @@ end;
 
 procedure TForm1.DecToRomano1Click(Sender: TObject);
 begin
- ShowMessage(ObjN.DeciToRomano(objN.getValor));
+ ShowMessage(ObjN.DeciToRomano());
 end;
 
 procedure TForm1.delDigit1Click(Sender: TObject);
@@ -313,6 +339,13 @@ begin
  ShowMessage(IntTOStr(ObjN.HexToDec(hex)));
 end;
 
+procedure TForm1.ieneExtrasLIT1Click(Sender: TObject);
+begin
+ if(objn.TieneExtrasLIT)then
+  ShowMessage('Si')
+   else   ShowMessage('No');
+end;
+
 procedure TForm1.InsertDigit1Click(Sender: TObject);
  var pos,dig:byte;
 begin
@@ -324,6 +357,14 @@ end;
 procedure TForm1.invertirnumero1Click(Sender: TObject);
 begin
 objN.invertirNumero;
+end;
+
+procedure TForm1.LiteralExtra1Click(Sender: TObject);
+ var pos,dig:byte;
+begin
+pos := StrToInt(InputBox('','Posicion : ',''));
+dig := StrToInt(InputBox('','Digito : ',''));
+ShowMessage( ObjN.LiteralExtra(pos,dig));
 end;
 
 procedure TForm1.ModDigPos1Click(Sender: TObject);
@@ -353,11 +394,17 @@ procedure TForm1.Obtenervalor1Click(Sender: TObject);
 begin
  Edit2.Text := '';
  Edit2.Text := IntTOStr(objN.getValor);
+
 end;
 
 procedure TForm1.oLiteral1Click(Sender: TObject);
 begin
- ShowMessage(objN.ToLiteral(objN.getValor));
+ ShowMessage(objN.ToLiteral());
+end;
+
+procedure TForm1.oLiteral2Click(Sender: TObject);
+begin
+ ShowMessage(ObjN.ToLiteral);
 end;
 
 procedure TForm1.Orde1Click(Sender: TObject);
@@ -407,6 +454,13 @@ procedure TForm1.transfRealAEntero1Click(Sender: TObject);
 begin
  elem := StrToFloat(InputBox('CONVERTIR REAL A ENTERO','numero real : : ',''));
  ShowMessage(IntToStr( objN.transfRealAEntero(elem)));
+end;
+
+procedure TForm1.transfRealAEnteroCopy1Click(Sender: TObject);
+ var elem : Real;
+begin
+ elem := StrToFloat(InputBox('CONVERTIR REAL A ENTERO','numero real : : ',''));
+ ShowMessage(IntToStr( objN.transfRealAEnteroCopy(elem)));
 end;
 
 procedure TForm1.verrificarfrac1Click(Sender: TObject);

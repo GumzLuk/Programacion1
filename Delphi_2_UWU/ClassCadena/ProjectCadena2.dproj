@@ -127,8 +127,8 @@
             <Form>Form1</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UClasCadena2.pas"/>
-        <DCCReference Include="UnitClasNumero.pas"/>
+        <DCCReference Include="UCCadena.pas"/>
+        <DCCReference Include="UCNumero.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

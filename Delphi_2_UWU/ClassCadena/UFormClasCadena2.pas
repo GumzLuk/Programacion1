@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, UClasCadena2;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, UCCadena;
 
 type
   TForm1 = class(TForm)
@@ -59,6 +59,23 @@ type
     redondeo1: TMenuItem;
     sacarFraccion1: TMenuItem;
     Examen51: TMenuItem;
+    FrecDePalabra1: TMenuItem;
+    busqDePalabra1: TMenuItem;
+    busqDePalabra21: TMenuItem;
+    ElimTodaPalabra1: TMenuItem;
+    adicionarTexto1: TMenuItem;
+    SonDeIgualesLong1: TMenuItem;
+    ObtMezclaRequerida1: TMenuItem;
+    Button1: TButton;
+    Button2: TButton;
+    funciones1: TMenuItem;
+    funciones2: TMenuItem;
+    ObtCentenaRomano1: TMenuItem;
+    RomanoToDecimal1: TMenuItem;
+    ObtDecenaRomano1: TMenuItem;
+    UnidadLiteral1: TMenuItem;
+    LiteralToDecimal1: TMenuItem;
+    ColocarPalabras1: TMenuItem;
     procedure CargarTexto1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure CargarTexto2Click(Sender: TObject);
@@ -101,6 +118,22 @@ type
     procedure redondeo1Click(Sender: TObject);
     procedure sacarFraccion1Click(Sender: TObject);
     procedure Examen51Click(Sender: TObject);
+    procedure FrecDePalabra1Click(Sender: TObject);
+    procedure busqDePalabra1Click(Sender: TObject);
+    procedure busqDePalabra21Click(Sender: TObject);
+    procedure ElimTodaPalabra1Click(Sender: TObject);
+    procedure adicionarTexto1Click(Sender: TObject);
+    procedure SonDeIgualesLong1Click(Sender: TObject);
+    procedure ObtMezclaRequerida1Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure funciones2Click(Sender: TObject);
+    procedure ObtCentenaRomano1Click(Sender: TObject);
+    procedure RomanoToDecimal1Click(Sender: TObject);
+    procedure ObtDecenaRomano1Click(Sender: TObject);
+    procedure UnidadLiteral1Click(Sender: TObject);
+    procedure LiteralToDecimal1Click(Sender: TObject);
+    procedure ColocarPalabras1Click(Sender: TObject);
 
   private
     { Private declarations }
@@ -123,6 +156,14 @@ pal := InputBox('','Ingrese la palabra','');
 cadT.addPalIzquierda(pal);
 end;
 
+procedure TForm1.adicionarTexto1Click(Sender: TObject);
+var
+    text:String;
+begin
+ text := InputBox('TEXTO','Ingrese el texto','');
+ cadT.adicionarTexto(text);
+end;
+
 procedure TForm1.alterar1Click(Sender: TObject);
 var   posi : Cardinal;
 begin
@@ -133,6 +174,33 @@ end;
 procedure TForm1.auxi22Click(Sender: TObject);
 begin
  caDt.ordenarXOrdAlfabetico;
+end;
+
+procedure TForm1.busqDePalabra1Click(Sender: TObject);
+var
+    pal:String;
+begin
+ pal := InputBox('','Ingrese la palabra','');
+ ShowMessage(IntToStr( cadT.busqDePalabra(pal)));
+end;
+
+procedure TForm1.busqDePalabra21Click(Sender: TObject);
+var pal:String;
+    posi : Word;
+begin
+ pal := InputBox('','Ingrese la palabra','');
+ posi := StrToInt(InputBox('','posicion',''));
+ ShowMessage(IntToStr( cadT.busqDePalabra(pal,posi)));
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+ cadT.cargarTexto(Edit1.Text);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+ Edit2.Text := cadT.getCadena;
 end;
 
 procedure TForm1.CargarTexto1Click(Sender: TObject);
@@ -147,6 +215,13 @@ end;
 procedure TForm1.CargarTexto2Click(Sender: TObject);
 begin
  Edit2.Text := cadT.getCadena;
+end;
+
+procedure TForm1.ColocarPalabras1Click(Sender: TObject);
+var pal:String;
+begin
+ pal := InputBox('','Ingrese la palabra','');
+ cadT.ColocarPalabras(pal);
 end;
 
 procedure TForm1.comprabarsiesnu1Click(Sender: TObject);
@@ -192,8 +267,14 @@ pos := StrToInt(InputBox('','posicion',''));
 cadT.elimXPos(pos);
 end;
 
-procedure TForm1.EstaLaSubCad1Click(Sender: TObject);
+procedure TForm1.ElimTodaPalabra1Click(Sender: TObject);
+var  palabra:String;
+begin
+ palabra := InputBox('','Ingrese la palabra','');
+ cadT.ElimTodaPalabra(palabra);
+end;
 
+procedure TForm1.EstaLaSubCad1Click(Sender: TObject);
 var  pal,sub:String;
 begin
  pal := InputBox('','Ingrese la palabra','');
@@ -227,6 +308,19 @@ begin
 cadT := Cadena.Create;
 end;
 
+procedure TForm1.FrecDePalabra1Click(Sender: TObject);
+var
+ pal : String;
+begin
+ pal := InputBox('','Ingrese la palabra','');
+ ShowMessage(IntToStr(cadT.FrecDePalabra(pal)));
+end;
+
+procedure TForm1.funciones2Click(Sender: TObject);
+begin
+ ShowMessage(IntToStr(cadT.ObtMillarRomano(cadt.getCadena)));
+end;
+
 procedure TForm1.getHora1Click(Sender: TObject);
 begin
   ShowMessage(IntToStr(cadT.getHora(cadT.getCadena)));
@@ -235,7 +329,7 @@ end;
 procedure TForm1.IgualLong1Click(Sender: TObject);
 var posi : Cardinal;
 begin
- posi := StrToInt(InputBox('','posicion',''));
+  posi := StrToInt(InputBox('','posicion',''));
   ShowMessage(IntToStr(cadT.IgualLong(posi)));
 end;
 
@@ -243,8 +337,8 @@ procedure TForm1.insertarpalabra1Click(Sender: TObject);
 var posi : Cardinal;
     pal:String;
 begin
-posi := StrToInt(InputBox('','posicion',''));
-pal := InputBox('','Ingrese la palabra','');
+ posi := StrToInt(InputBox('','posicion',''));
+ pal := InputBox('','Ingrese la palabra','');
  cadT.insertPal(posi,pal);
 end;
 
@@ -271,6 +365,11 @@ begin
  posA:= StrToInt(InputBox('','Posicion A',''));
  posB:= StrToInt(InputBox('','Posicion B',''));
  cadT.IntercambiarPosDPal(posA,posB);
+end;
+
+procedure TForm1.LiteralToDecimal1Click(Sender: TObject);
+begin
+ ShowMessage(IntToStr(cadT.LiteralToDecimal));
 end;
 
 procedure TForm1.MayPosPal1Click(Sender: TObject);
@@ -329,6 +428,16 @@ begin
  ShowMessage(IntTOStr(cadT.nroDePalFinVocal));
 end;
 
+procedure TForm1.ObtCentenaRomano1Click(Sender: TObject);
+begin
+ ShowMessage(IntToStr(cadT.ObtCentenaRomano(cadt.getCadena)));
+end;
+
+procedure TForm1.ObtDecenaRomano1Click(Sender: TObject);
+begin
+ ShowMessage(IntToStr(cadT.ObtDecenaRomano(cadT.getCadena)));
+end;
+
 procedure TForm1.obtenerlongitud1Click(Sender: TObject);
 begin
  ShowMessage(IntToStr(cadT.getLong));
@@ -347,6 +456,16 @@ var i:cardinal;
 begin
  i := StrToInt(InputBox('Ingrese posicion','',''));
  ShowMessage(cadT.getPalXPos(i));
+end;
+
+procedure TForm1.ObtMezclaRequerida1Click(Sender: TObject);
+var  palabraUt,palabraReq : String;
+begin
+ palabraUt := InputBox('','Numero','');
+ palabraReq := InputBox('','Numero','');
+   if(cadT.ObtMezclaRequerida(palabraUt,palabraReq))then
+     ShowMessage('Es igual')
+       else    ShowMessage('No es igual');
 end;
 
 procedure TForm1.Palabramenorxalfaabet1Click(Sender: TObject);
@@ -373,7 +492,7 @@ end;
 procedure TForm1.PosDePalConSubCad1Click(Sender: TObject);
  var   subCad:String;
 begin
-subCad := InputBox('','Ingrese la palabra','');
+subCad := InputBox('','Ingrese la subcadena','');
 ShowMessage(intToStr(cadT.PosDePalConSubCad(subcad)));
 end;
 
@@ -393,11 +512,24 @@ redon := StrToInt(InputBox('','Posicion',''));
 Cadt.Examen5(N,redon);
 end;
 
+procedure TForm1.RomanoToDecimal1Click(Sender: TObject);
+begin
+ShowMessage(intToStr(cadT.RomanoToDecimal(cadT.getCadena)));
+end;
+
 procedure TForm1.sacarFraccion1Click(Sender: TObject);
 var  N : String;
 begin
 N := InputBox('','Numero','');
 ShowMessage(intToStr(cadT.SacarFracc(N)));
+end;
+
+procedure TForm1.SonDeIgualesLong1Click(Sender: TObject);
+begin
+ if(cadT.SonDeIgualesLong)then
+  ShowMessage('Son de iguales longitudes')
+     else
+        ShowMessage('No son de iguales longitudes');
 end;
 
 procedure TForm1.SubCadXPos1Click(Sender: TObject);
@@ -406,6 +538,11 @@ begin
 posI := StrToInt(InputBox('','Posicion',''));
 posF := StrToInt(InputBox('','Posicion',''));
 ShowMessage(cadT.SubCadXPos(cadT.getCadena,posI,posF));
+end;
+
+procedure TForm1.UnidadLiteral1Click(Sender: TObject);
+begin
+ ShowMessage(inttostr(cadT.UnidadLiteral()));
 end;
 
 end.

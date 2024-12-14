@@ -103,9 +103,9 @@
             <Form>Form1</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="UnitClassTFile2.pas"/>
-        <DCCReference Include="UClasCadena2.pas"/>
-        <DCCReference Include="UnitClasNumero.pas"/>
+        <DCCReference Include="UCTFile.pas"/>
+        <DCCReference Include="UCNumero.pas"/>
+        <DCCReference Include="UCCadena.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

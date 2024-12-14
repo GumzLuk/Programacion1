@@ -1,0 +1,328 @@
+unit UCMatrizChars;
+
+interface
+
+ uses SysUtils, Dialogs, UCCadena;
+
+ const
+   MAXF=124;
+   MAXC=124;
+
+  Type
+    MatrizChar = Class
+      private
+        NroFilas:Word;
+        NroColumnas:Word;
+        Celdas:array[1..MAXF,1..MAXC] of char;
+      public
+
+//procedimientos________________________________________________________________
+        procedure CargarUnoAUno(f,c:Word);
+        procedure CargaRandom(f,c:Word);
+        procedure Redimensionar(f,c:Word);
+        procedure ModCell(f,c:Word;chr:Char);
+        procedure CargarCadenaPalabras(Palabras:String); //dimension controlada
+        procedure CargarCadena(Palabras:String);  //dimension no controlada
+
+//funciones_____________________________________________________________________
+       function verMatriz():String;
+       function GetCelda(f,c:Word):Char;
+       function getFilas():Word;
+       function getColumnas():Word;
+       {Ejercicios Sopa de letras}
+       function GetCharLeft(f,c,Lpal:Word):String;
+       function GetCharRight(f, c: Word;Lpal:Word): String;
+       function GetCharUp(f, c: Word; Lpal:Word): String;
+       function GetCharDown(f, c : Word;Lpal:Word): String;
+       function SopaDeLetras(Palabra:String):Boolean;
+       function cabeEnMatrizDerecha(NroC:Word;palabra:String):boolean;
+       function cabeEnMatrizAbajo(NroF:Word;palabra:String):boolean;
+       function estaVacioFila(NroF,NroC:Word):boolean;
+       function estaVacioColumna(NroF,NroC:Word):boolean;
+       function palabrasCabenEnMatriz(palabras:String):Cadena;
+    End;
+implementation
+
+{ MatrizChar }
+
+
+//procedimiento_________________________________________________________________
+
+procedure MatrizChar.CargaRandom(f, c: Word);
+var
+  i,s,j:Word;
+
+begin
+Redimensionar(f,c);
+ for i := 1 to NroFilas do
+   begin
+     for j := 1 to NroColumnas do
+       begin
+         s:=97+Random(122-97+1);
+         Celdas[i,j] := chr(s);
+       end;
+   end;
+end;
+
+procedure MatrizChar.CargarUnoAUno(f,c:Word);
+var
+  i,j:Word;
+  chr:char;
+  pAux:String;
+begin
+Redimensionar(f,c);
+pAux:='';
+ for i := 1 to NroFilas do
+   begin
+     for j := 1 to NroColumnas do
+       begin
+         pAux:=InputBox('Char','M [ '+IntToStr(i)+','+IntToSTr(j)+' ]','');
+         chr:=pAux[1];
+         Celdas[i,j]:=chr;
+       end;
+   end;
+end;
+
+procedure MatrizChar.ModCell(f, c: Word;chr:Char);
+begin
+if(f>0)AND(f<=NroFilas)AND(c>0)AND(c<=NroColumnas)Then
+   Celdas[f,c]:=chr
+     else raise Exception.Create('Error de posicion');
+end;
+
+procedure MatrizChar.Redimensionar(f, c: Word);
+begin
+  if(f>0)AND(f<=MAXF)AND(c>0)AND(c<=MAXC)then
+   begin
+    NroFilas := f;
+    NroColumnas := c;
+   end
+     else raise Exception.Create('Error de posicion');
+end;
+
+procedure MatrizChar.CargarCadena(Palabras: String);
+ var
+   cadenaX : Cadena;
+begin
+ cadenaX := Cadena.Create;
+ cadenaX := palabrasCabenEnMatriz(palabras);
+end;
+
+procedure MatrizChar.CargarCadenaPalabras(Palabras: String);
+ var
+  cadenaX : Cadena;
+  i,j : Word;
+  palabraR : String;
+begin
+ cadenaX := Cadena.Create;
+ cadenax.cargarTexto(Palabras);
+ NroFilas := cadenaX.CantDPal;
+ NroColumnas := cadenaX.longitudMay();
+   for i := 1 to NroFilas do
+      begin
+        palabraR := cadenaX.getPalXPos(i);
+         for j := 1 to NroColumnas do
+          begin
+            if(j <= Length(palabraR))then
+             Celdas[i,j] := palabraR[j];
+          end;
+      end;
+end;
+
+//funciones_____________________________________________________________________
+
+function MatrizChar.verMatriz: String;
+ var
+  Matriz : String;
+  i,j : Word;
+begin
+ Matriz := '';
+  for i := 1 to NroFilas do
+    begin
+      Matriz := Matriz +'| ';
+      for j := 1 to NroColumnas do
+        begin
+         Matriz := Matriz + celdas[i,j] + ' , ';
+        end;
+      Matriz := Matriz +' |';
+      Matriz := Matriz + #10;
+    end;
+ Result := Matriz;
+end;
+
+function MatrizChar.getColumnas: Word;
+begin
+Result:=NroColumnas;
+end;
+
+
+function MatrizChar.getFilas: Word;
+begin
+Result:=NroFilas;
+end;
+
+function MatrizChar.GetCelda(f, c: Word): Char;
+begin
+if(f>0)AND(f<=NroFilas)AND(c>0)AND(c<=NroColumnas)Then
+  Result:=Celdas[f,c]
+     else raise Exception.Create('Error de posicion');
+end;
+
+function MatrizChar.GetCharLeft(f, c: Word; Lpal:Word): String;
+var
+  pal:String;
+  j:Word;
+begin
+pal:='';
+ for j := 1 to Lpal do
+  begin
+    pal := pal + GetCelda(f,c);
+    Dec(c)
+  end;
+Result := UpperCase(pal);
+end;
+
+function MatrizChar.GetCharRight(f, c: Word;Lpal:Word): String;
+var
+  pal:String;
+  j:Word;
+begin
+ pal := '';
+  for j := 1 to Lpal do
+    begin
+      pal := pal + GetCelda(f,c);
+      Inc(c)
+    end;
+ Result := UpperCase(pal);
+end;
+
+function MatrizChar.GetCharUp(f, c: Word; Lpal:Word): String;
+var
+  pal:String;
+  i:Word;
+begin
+ pal := '';
+  for i := 1 to Lpal do
+    begin
+      pal := pal + GetCelda(f,c);
+      Dec(f);
+    end;
+ Result := UpperCase(pal);
+end;
+
+function MatrizChar.GetCharDown(f, c : Word;Lpal:Word): String;
+var
+  pal:String;
+  i:Word;
+begin
+ pal := '';
+  for i := 1 to LPal do
+    begin
+      pal := pal + GetCelda(f,c);
+      Inc(f)
+    end;
+ Result := UpperCase(pal);
+end;
+
+function MatrizChar.SopaDeLetras(Palabra: String): Boolean;
+var
+  i,j,Lpal:Word;
+  k:Boolean;
+begin
+ k := False;
+ i := 1;
+ LPal := Length(Palabra);
+ Palabra := UpperCase(Palabra);
+   While (i<=NroFilas)AND NOT(k)do
+     begin
+      j := 1;
+       while(j<=NroColumnas)AND NOT(k)do
+         begin
+           if(UpCase(Celdas[i,j]) = Palabra[1])then
+             begin
+               if(j>=NroColumnas)AND(GetCharLeft(i,j,Lpal) = Palabra)Then
+                  k := True;
+               if(NroColumnas - j >= LPal-1)AND(GetCharRight(i,j,LPal) = Palabra)Then
+                  k := True;
+               if(i >= NroFilas)AND(GetCharUp(i,j,LPal) = Palabra)Then
+                  k := True;
+               if(NroFilas - i >= Lpal-1)AND(GetCharDown(i,j,LPal) = Palabra)Then
+                  k := True;
+               if(k)then
+                ShowMessage(inttostr(i)+','+inttostr(j));
+             end;
+           j := j + 1;
+         end;
+       i := i + 1;
+     end;
+ Result := k;
+end;
+
+function MatrizChar.estaVacioFila(NroF, NroC: Word): boolean;
+ var
+  i,cont : Word;
+begin
+ cont := 0;
+   for i := Nroc to NroColumnas do
+    begin
+      if(Celdas[NroF,i] = '')OR((Celdas[NroF,i] = ' '))then
+        cont := cont + 1;
+    end;
+ if(cont = NroColumnas-(NroC-1))then
+   Result := true
+      else Result := false;
+end;
+
+function MatrizChar.estaVacioColumna(NroF, NroC: Word): boolean;
+ var
+  i,cont : Word;
+begin
+ cont := 0;
+   for i := NroF to NroFilas do
+    begin
+      if(Celdas[i,NroC] = '')OR((Celdas[i,NroC] = ' '))then
+        cont := cont + 1;
+    end;
+ if(cont = NroFilas-(NroF-1))then
+   Result := true
+      else Result := false;
+end;
+
+function MatrizChar.cabeEnMatrizDerecha(NroC:Word;palabra: String): boolean;
+begin
+ if(Length(palabra) = NroColumnas-(NroC-1))then
+    Result := true
+       else Result := false;
+end;
+
+function MatrizChar.cabeEnMatrizAbajo(NroF: Word;palabra: String): boolean;
+begin
+ if(Length(palabra) = NroFilas-(NroF-1))then
+   Result := true
+    else Result := false;
+end;
+
+function MatrizChar.palabrasCabenEnMatriz(palabras: String): Cadena;
+ var
+   cadenaX : Cadena;
+   i,cont : Word;
+begin
+ cadenaX := Cadena.Create;
+ cadenaX.cargarTexto(Palabras);
+ i := 1;
+  while(i <= cadenaX.CantDPal)do
+   begin
+    cont := 0;
+     if Not(cabeEnMatrizDerecha(1,cadenaX.getPalXPos(i)))then
+        cont := cont + 1;
+     if Not(cabeEnMatrizAbajo(1,cadenaX.getPalXPos(i)))then
+        cont := cont + 1;
+     if(cont = 2)then
+       cadenaX.modPalabraXPos(i,'');
+    i := i + 1;
+   end;
+ Result := cadenaX;
+end;
+
+end.
+

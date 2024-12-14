@@ -1,0 +1,273 @@
+unit UFormMatrizChars;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.Grids,UCMatrizChars,
+  Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    StringGrid1: TStringGrid;
+    MainMenu1: TMainMenu;
+    Matriz1: TMenuItem;
+    Matriz2: TMenuItem;
+    Metodos1: TMenuItem;
+    SacarCharsIzquierda1: TMenuItem;
+    ExistePalabra1: TMenuItem;
+    CargaAleatoria1: TMenuItem;
+    GetCharRigh1: TMenuItem;
+    GetCharUp1: TMenuItem;
+    GetCharUp2: TMenuItem;
+    Button1: TButton;
+    Button2: TButton;
+    Button3: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    procedimientos1: TMenuItem;
+    CargarCadenaPalabras1: TMenuItem;
+    estaVacio1: TMenuItem;
+    verMatriz1: TMenuItem;
+    estaVacioFila1: TMenuItem;
+    cabeEnMatrizDerecha1: TMenuItem;
+    cabeEnMatrizAbajo1: TMenuItem;
+    procedure Matriz2Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure SacarCharsIzquierda1Click(Sender: TObject);
+    procedure ExistePalabra1Click(Sender: TObject);
+    procedure boll1Click(Sender: TObject);
+    procedure CargaAleatoria1Click(Sender: TObject);
+    procedure GetCharRigh1Click(Sender: TObject);
+    procedure GetCharUp2Click(Sender: TObject);
+    procedure GetCharUp1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure CargarCadenaPalabras1Click(Sender: TObject);
+    procedure estaVacio1Click(Sender: TObject);
+    procedure verMatriz1Click(Sender: TObject);
+    procedure estaVacioFila1Click(Sender: TObject);
+    procedure cabeEnMatrizDerecha1Click(Sender: TObject);
+    procedure cabeEnMatrizAbajo1Click(Sender: TObject);
+  private
+    { Private declarations }
+   MatrizN:MatrizChar;
+  public
+    { Public declarations }
+   procedure Visualizar();
+   procedure CargarMatriz();
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.boll1Click(Sender: TObject);
+begin
+ ShowMessage(BoolToStr(False));
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  f,c:Word;
+begin
+ f := StrToInt(InputBox('Fila','Nro de Filas',''));
+ c := StrToInt(InputBox('Columna','Nro de Columnas',''));
+ MatrizN.Redimensionar(f,c);
+ StringGrid1.RowCount := MatrizN.getFilas;
+ StringGrid1.ColCount := MatrizN.getColumnas;
+ Label2.Caption := IntToStr(f);
+ Label3.Caption := IntToStr(c);
+ Visualizar;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+ CargarMatriz;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+ Visualizar;
+end;
+
+procedure TForm1.cabeEnMatrizAbajo1Click(Sender: TObject);
+var
+  f : Word;
+  palabra : String;
+begin
+ f := StrToInt(InputBox('Columna','Nro de Columnas',''));
+ palabra := InputBox('','ingrese las palabras : ','');
+ if(matrizN.cabeEnMatrizAbajo(f,palabra))then
+   ShowMessage('Si cabe la pabra')
+     else   ShowMessage('No cabe la pabra');
+end;
+
+procedure TForm1.cabeEnMatrizDerecha1Click(Sender: TObject);
+var
+  c : Word;
+  palabra : String;
+begin
+ c := StrToInt(InputBox('Columna','Nro de Columnas',''));
+ palabra := InputBox('','ingrese las palabras : ','');
+ if(matrizN.cabeEnMatrizDerecha(c,palabra))then
+   ShowMessage('Si cabe la pabra')
+     else   ShowMessage('No cabe la pabra');
+end;
+
+procedure TForm1.CargaAleatoria1Click(Sender: TObject);
+var
+  f,c:Word;
+begin
+ f := StrToInt(InputBox('Fila','Nro de Filas',''));
+ c := StrToInt(InputBox('Columna','Nro de Columnas',''));
+ MatrizN.CargaRandom(f,c);
+ Visualizar;
+end;
+
+procedure TForm1.CargarCadenaPalabras1Click(Sender: TObject);
+var
+ palabras : String;
+begin
+ palabras := InputBox('','ingrese las palabras : ','');
+ MatrizN.CargarCadenaPalabras(palabras);
+end;
+
+procedure TForm1.CargarMatriz;
+ var
+   i,j : Word;
+   chr : Char;
+begin
+ for i := 1 to MatrizN.getFilas do
+    begin
+      for j := 1 to MatrizN.getColumnas do
+        begin
+          chr := StringGrid1.Cells[j-1,i-1][1];
+          MatrizN.ModCell(i,j,chr);
+        end;
+    end;
+end;
+
+procedure TForm1.estaVacio1Click(Sender: TObject);
+var
+ f,c:Word;
+begin
+ f := StrToInt(InputBox('Fila','Posicion de Fila',''));
+ c := StrToInt(InputBox('Columna','Posicion de Columna',''));
+  if(MatrizN.estaVacioFila(f,c))then
+    ShowMessage('vacio')
+       else     ShowMessage('No vacio');
+end;
+
+procedure TForm1.estaVacioFila1Click(Sender: TObject);
+var
+ f,c:Word;
+begin
+ f := StrToInt(InputBox('Fila','Posicion de Fila',''));
+ c := StrToInt(InputBox('Columna','Posicion de Columna',''));
+  if(MatrizN.estaVacioColumna(f,c))then
+    ShowMessage('vacio')
+       else     ShowMessage('No vacio');
+end;
+
+procedure TForm1.ExistePalabra1Click(Sender: TObject);
+var
+ pal:String;
+begin
+ pal := InputBox('','Palabra a buscar','');
+ if(true = MatrizN.SopaDeLetras(pal))then
+   ShowMessage('Existe')
+     else    ShowMessage('No existe');
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+ MatrizN := MatrizChar.Create;
+end;
+
+procedure TForm1.GetCharRigh1Click(Sender: TObject);
+var
+ f,c,Lpal:Word;
+ pal:String;
+begin
+ f := StrToInt(InputBox('Fila','Posicion de Fila',''));
+ c := StrToInt(InputBox('Columna','Posicion de Columna',''));
+ pal := InputBox('','Palabra a buscar','');
+ Lpal := Length(pal);
+ ShowMessage(MatrizN.GetCharRight(f,c,Lpal));
+end;
+
+procedure TForm1.GetCharUp1Click(Sender: TObject);
+var
+ f,c,Lpal:Word;
+ pal:String;
+begin
+ f := StrToInt(InputBox('Fila','Posicion de Fila',''));
+ c := StrToInt(InputBox('Columna','Posicion de Columna',''));
+ pal := InputBox('','Palabra a buscar','');
+ Lpal := Length(pal);
+ ShowMessage(MatrizN.GetCharUp(f,c,Lpal));
+end;
+
+procedure TForm1.GetCharUp2Click(Sender: TObject);
+var
+ f,c,Lpal:Word;
+ pal:String;
+begin
+ f := StrToInt(InputBox('Fila','Posicion de Fila',''));
+ c := StrToInt(InputBox('Columna','Posicion de Columna',''));
+ pal := InputBox('','Palabra a buscar','');
+ Lpal := Length(pal);
+ ShowMessage(MatrizN.GetCharDown(f,c,Lpal));
+end;
+
+procedure TForm1.Matriz2Click(Sender: TObject);
+var
+  f,c:Word;
+begin
+ f := StrToInt(InputBox('Nro de Filas','Filas',''));
+ c := StrToInt(InputBox('Nro de Columnas','Columnas',''));
+ MatrizN.CargarUnoAUno(f,c);
+ Visualizar;
+end;
+
+procedure TForm1.SacarCharsIzquierda1Click(Sender: TObject);
+var
+ f,c,Lpal:Word;
+ pal:String;
+begin
+ f := StrToInt(InputBox('Fila','Posicion de Fila',''));
+ c := StrToInt(InputBox('Columna','Posicion de Columna',''));
+ pal := InputBox('','Palabra a buscar','');
+ Lpal := Length(pal);
+ ShowMessage(MatrizN.GetCharLeft(f,c,Lpal));
+end;
+
+procedure TForm1.verMatriz1Click(Sender: TObject);
+begin
+ ShowMessage(MatrizN.verMatriz);
+end;
+
+procedure TForm1.Visualizar;
+var
+ i,j:Word;
+ pal:String;
+begin
+ StringGrid1.RowCount := MatrizN.getFilas;
+ StringGrid1.ColCount := MatrizN.getColumnas;
+ for i := 1 to MatrizN.getFilas do
+    begin
+       for j := 1 to MatrizN.getColumnas do
+         begin
+           StringGrid1.Cells[j-1,i-1] := MatrizN.GetCelda(i,j);
+         end;
+    end;
+end;
+
+end.

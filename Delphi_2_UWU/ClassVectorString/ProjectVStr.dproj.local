@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/11/08 18:21:59.000.268,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/08 18:25:54.000.027,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/08 18:26:08.000.513,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/11/08 18:37:25.000.135,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\UClassVectStr.pas=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/11/08 18:37:40.000.541,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\UFormVStr.pas=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/08 18:37:40.000.541,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\UFormVStr.dfm=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2024/11/08 18:37:46.000.885,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\ProjectVStr.dproj=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/11/19 09:15:30.000.840,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\UClasCadena2.pas</Transaction>
+    <Transaction>2024/12/10 13:02:25.000.210,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\UClassVectStr.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\UCVectStr.pas</Transaction>
+    <Transaction>2024/12/10 13:06:16.271,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassVectorString\UCCadena.pas</Transaction>
+  </Transactions>
+</BorlandProject>

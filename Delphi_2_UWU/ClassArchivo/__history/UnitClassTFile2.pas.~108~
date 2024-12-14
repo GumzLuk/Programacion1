@@ -1,0 +1,151 @@
+unit UnitClassTFile2;
+
+interface
+  uses SysUtils,Classes,Dialogs,UClasCadena2;
+
+   type
+      TModo=(lectura,escritura);
+      TFile=class
+        private
+          Nombre:String;
+          PF:TextFile;
+        public
+//procedimientos________________________________________________________________
+          procedure open(mode:TModo);
+          procedure setName(path:String);
+          procedure elimPalArchivo(palabra:String);
+          procedure Close;
+          procedure saveLines(lineas:TStrings);
+          procedure updateFile(Lineas:TStringList);
+          procedure elimLineaTxt(LineaN : Word);
+//funsiones____________________________________ vc_________________________________
+          function readLines():TStringList;
+          function TxtToCadena(Lineas:TStrings):Cadena;
+          function NroLineas():Word;
+      end;
+
+implementation
+
+{ TFile }
+//procedimientos________________________________________________________________
+
+procedure TFile.Close;
+begin
+ CloseFile(PF);
+end;
+
+procedure TFile.setName(path: String);
+begin
+ Nombre:=path;
+end;
+
+procedure TFile.elimPalArchivo(palabra: String);
+var
+  CadenaF : Cadena;
+  Lista : TStringList;
+  i : Word;
+
+begin
+ Lista := TStringList.Create;
+ CadenaF := Cadena.Create;
+ Reset(PF);
+ Lista.Assign(readLines);
+ CloseFile(PF);
+  for i := 0 to Lista.Count-1 do
+    begin
+      cadenaF.cargarTexto(Lista[i]);
+      cadenaF.ElimTodaPalabra(palabra);
+      Lista[i] := cadenaF.getCadena();
+    end;
+ Rewrite(PF);
+ updateFile(Lista);
+ CloseFile(PF);
+end;
+
+procedure TFile.open(mode: TModo);
+begin
+  AssignFile(PF,Nombre);
+    case mode of
+      lectura: Reset(PF);
+      escritura: Rewrite(PF);
+    end;
+end;
+
+procedure TFile.saveLines(lineas: TStrings);
+ var
+   s:String;
+begin
+  for s in lineas do
+     Writeln(PF,s);
+end;
+
+procedure TFile.updateFile(Lineas: TStringList);
+var
+ i:Word;
+begin
+   for i := 0 to Lineas.count-1 do
+    begin
+      writeLn(PF,Lineas[i]);
+    end;
+end;
+
+procedure TFile.elimLineaTxt(LineaN: Word);
+var
+  Lista : TStringList;
+  i : Word;
+  Str : String;
+begin
+ Lista := TStringList.Create;
+ Reset(PF);
+ Lista.Assign(readLines);
+ CloseFile(PF);
+   for i := 0 to Lista.Count-1 do
+
+  ShowMessage(Str);
+end;
+
+//funsiones_____________________________________________________________________
+
+function TFile.readLines: TStringList;
+ var
+   s:String;
+   Lineas:TStringList;
+begin
+  Lineas:=TStringList.Create;
+    while NOT Eof(PF) do
+     begin
+        Readln(PF,s);
+        Lineas.Add(s);
+     end;
+  Result:=Lineas;
+end;
+
+function TFile.TxtToCadena(Lineas: TStrings): Cadena;
+var
+  Cad : Cadena;
+  i : Word;
+begin
+ Cad := Cadena.Create;
+ i := 0;
+   while(i <= Lineas.Count)do
+    begin
+      cad.adicionarTexto(Lineas[i]);
+      i := i + 1;
+    end;
+ Result := Cad;
+end;
+
+function TFile.NroLineas: Word;
+var
+ nro : Word;
+begin
+ nro := 0;
+   while(not Eof(PF))do
+     begin
+       if(Eoln(PF))then
+         nro := nro + 1;
+     end;
+  Result := nro;
+end;
+
+end.

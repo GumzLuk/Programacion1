@@ -1,0 +1,174 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 361
+  ClientWidth = 828
+  Color = clTeal
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  TextHeight = 15
+  object Dimension: TLabel
+    Left = 104
+    Top = 198
+    Width = 72
+    Height = 19
+    Caption = 'Dimension'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 328
+    Top = 199
+    Width = 92
+    Height = 19
+    Caption = 'Cargar Vector'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 552
+    Top = 198
+    Width = 103
+    Height = 19
+    Caption = 'Mostrar Vector'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Calibri'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object StringGrid1: TStringGrid
+    Left = 32
+    Top = 112
+    Width = 721
+    Height = 57
+    ColCount = 4
+    DefaultColWidth = 123
+    FixedCols = 0
+    RowCount = 1
+    FixedRows = 0
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    GridLineWidth = 3
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing, goFixedRowDefAlign]
+    ParentFont = False
+    TabOrder = 0
+  end
+  object Button1: TButton
+    Left = 96
+    Top = 223
+    Width = 91
+    Height = 25
+    Caption = 'dimension'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 328
+    Top = 224
+    Width = 75
+    Height = 25
+    Caption = 'Cargar'
+    TabOrder = 2
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 568
+    Top = 223
+    Width = 75
+    Height = 25
+    Caption = 'Mostrar'
+    TabOrder = 3
+    OnClick = Button3Click
+  end
+  object MainMenu1: TMainMenu
+    Left = 48
+    Top = 40
+    object Menu1: TMenuItem
+      Caption = 'Menu'
+      object Menu2: TMenuItem
+        Caption = 'dimensionar'
+      end
+      object vervector1: TMenuItem
+        Caption = 'ver vector'
+        OnClick = vervector1Click
+      end
+    end
+    object procedimientos1: TMenuItem
+      Caption = 'procedimientos'
+      object procedimientos2: TMenuItem
+        Caption = 'modElement'
+        OnClick = procedimientos2Click
+      end
+      object elimElement1: TMenuItem
+        Caption = 'elimElement'
+        OnClick = elimElement1Click
+      end
+      object insertElem1: TMenuItem
+        Caption = 'insertElem'
+        OnClick = insertElem1Click
+      end
+      object exchangeSortLong1: TMenuItem
+        Caption = 'exchangeSortLong'
+        OnClick = exchangeSortLong1Click
+      end
+      object QuickSortLong1: TMenuItem
+        Caption = 'QuickSortLong'
+        OnClick = QuickSortLong1Click
+      end
+      object QSortLong1: TMenuItem
+        Caption = 'QSortLong'
+        OnClick = QSortLong1Click
+      end
+      object exchangeSortWord1: TMenuItem
+        Caption = 'exchangeSortWord'
+        OnClick = exchangeSortWord1Click
+      end
+      object QuickSortWord1: TMenuItem
+        Caption = 'QuickSortWord'
+        OnClick = QuickSortWord1Click
+      end
+      object ExtenderVector1: TMenuItem
+        Caption = 'ExtenderVector'
+        OnClick = ExtenderVector1Click
+      end
+      object EliminarElementMayorUnString1: TMenuItem
+        Caption = 'EliminarElementMayorUnString'
+        OnClick = EliminarElementMayorUnString1Click
+      end
+    end
+    object funciones1: TMenuItem
+      Caption = 'funciones'
+      object longitudElem1: TMenuItem
+        Caption = 'longitudElem'
+        OnClick = longitudElem1Click
+      end
+      object Obt1erCharXPos1: TMenuItem
+        Caption = 'Obt1erCharXPos'
+        OnClick = Obt1erCharXPos1Click
+      end
+      object AumentoDimensionExtender1: TMenuItem
+        Caption = 'AumentoDimension_Extender'
+        OnClick = AumentoDimensionExtender1Click
+      end
+    end
+  end
+end

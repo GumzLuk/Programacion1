@@ -1,0 +1,94 @@
+unit UClasVectorLista;
+
+interface
+ uses SysUtils;
+ const MAXE = 124;
+
+ Type
+   Lista = record
+     Registro : Cardinal;
+     Nombre : String;
+     Materia : String;
+     Semestre : Word;
+     Nota : Real;
+   end;
+
+  vector = Class
+    private
+      elementos : array[1..MAXE] of Lista;
+      dimension : Word;
+
+    public
+//procedimiento_________________________________________________________________
+      procedure modElement(posE:Word;List:Lista);
+      procedure insertElement(posE:Word;List:Lista);
+      procedure elimElement(posE:Word);
+
+//funciones_____________________________________________________________________
+      function getElement(posE:Word):Lista;
+      function getdim():Word;
+
+  End;
+implementation
+
+{ vector }
+
+//procedure_____________________________________________________________________
+
+procedure vector.insertElement(posE: Word; List: Lista);
+ var
+  i : Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+   dimension := dimension + 1;
+    for i := dimension downto posE+1 do
+      begin
+        elementos[i] := elementos[i-1];
+      end;
+   elementos[posE].Registro := 0;
+   elementos[posE].Nombre := '';
+   elementos[posE].Materia := '';
+   elementos[posE].Semestre := 0;
+   elementos[posE].Nota := 0;
+  end;
+end;
+
+procedure vector.modElement(posE: Word; List: Lista);
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+    elementos[posE] := List;
+  end;
+end;
+
+procedure vector.elimElement(posE: Word);
+ var
+  i : Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+    for i := posE to dimension-1 do
+       begin
+         elementos[i] := elementos[i+1];
+       end;
+    dimension := dimension - 1;
+  end;
+end;
+
+//funciones_____________________________________________________________________
+
+function vector.getdim: Word;
+begin
+ Result := dimension;
+end;
+
+function vector.getElement(posE: Word): Lista;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+    Result := elementos[posE];
+  end;
+end;
+
+end.

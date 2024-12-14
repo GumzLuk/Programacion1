@@ -1,0 +1,162 @@
+unit UClassTFigura;
+
+interface
+ uses Graphics, UClassMuro;
+ const
+    velocidad = 32;
+  Type
+    TFigura = Class
+      private
+         widthFigura,heigthFigura : Word;
+         movimiento : word;
+         skin : TBitmap;
+     public
+        x,y : Word;
+         constructor createFigura(xi,yi:Word);
+         procedure cargarImagen(rutaImagen:String);
+         procedure dibujar(pantalla:TCanvas);
+         procedure mover(direccion:Word);
+         procedure CambiarMovimiento(NewMov:Word);
+         procedure CambiarPosicion(x,y:Word);
+         function ObtMovimiento():Word;
+         function ObtX():Word;
+         function ObtY():Word;
+         function ObtAnchoFigura():Word;
+         function ObtAlturaFigura():Word;
+         function choqueMuroDerecha(posSiguiente:Word;Muros:TMuro):boolean;
+         function choqueMuroIzquierda(posSiguiente:Word;Muros:TMuro):boolean;
+         function choqueMuroArriba(posSiguiente:Word;Muros:TMuro):boolean;
+         function choqueMuroAbajo(posSiguiente:Word;Muros:TMuro):boolean;
+    End;
+
+implementation
+
+{ TFigura }
+
+constructor TFigura.createFigura(xi, yi: Word);
+begin
+ Self.x := xi;
+ Self.y := yi;
+end;
+
+procedure TFigura.cargarImagen(rutaImagen: String);
+begin
+ skin := TBitmap.Create;
+ skin.LoadFromFile(rutaImagen);
+ widthFigura := skin.Width;
+ heigthFigura := skin.Height;
+ {transparencia}
+ skin.Transparent := true;
+ skin.TransparentColor := skin.Canvas.Pixels[1,1];
+end;
+
+procedure TFigura.dibujar(pantalla:TCanvas);
+begin
+ pantalla.Draw(x,y,skin);
+end;
+
+procedure TFigura.mover(direccion:Word);
+begin
+  case direccion of
+   37 : begin
+           x := x - velocidad; cargarImagen('gokuIzquierda.bmp');
+        end;
+   38 : begin  y := y - velocidad; cargarImagen('gokuAbajo.bmp'); end;
+   39 : begin
+         //if not(choqueMuroDerecha(velocidad+x,Muros))then
+          x := x + velocidad; cargarImagen('gokuDerecha.bmp');
+        end;
+   40 : begin y := y + velocidad; cargarImagen('gokuAbajo.bmp'); end;
+  end;
+end;
+
+procedure TFigura.CambiarMovimiento(NewMov: Word);
+begin
+ movimiento := NewMov;
+end;
+
+procedure TFigura.CambiarPosicion(x, y: Word);
+begin
+ Self.x := x;
+ Self.y := y;
+end;
+
+function TFigura.ObtMovimiento: Word;
+begin
+ Result := movimiento;
+end;
+
+function TFigura.ObtX: Word;
+begin
+ Result := x;
+end;
+
+function TFigura.ObtY: Word;
+begin
+ Result := y;
+end;
+
+function TFigura.ObtAlturaFigura: Word;
+begin
+ Result := (y + heigthFigura);
+end;
+
+function TFigura.ObtAnchoFigura: Word;
+begin
+ Result := (x + widthFigura);
+end;
+
+function TFigura.choqueMuroAbajo(posSiguiente:Word;Muros:TMuro): boolean;
+begin
+
+end;
+
+function TFigura.choqueMuroArriba(posSiguiente:Word;Muros:TMuro): boolean;
+ var
+   i : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ i := 1;
+   while(i <= Muros.getDimension)AND not(choqM)do
+    begin
+      if(Self.x = Muros.ObtXPosElement(i))AND(posSiguiente = Muros.ObtYPosElement(i))then
+         choqM := true;
+      i := i + 1;
+    end;
+ Result := choqM;end;
+end;
+
+function TFigura.choqueMuroDerecha(posSiguiente:Word;Muros:TMuro): boolean;
+ var
+   i : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ i := 1;
+   while(i <= Muros.getDimension)AND not(choqM)do
+    begin
+      if(Self.y = Muros.ObtYPosElement(i))AND(posSiguiente = Muros.ObtXPosElement(i))then
+         choqM := true;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+function TFigura.choqueMuroIzquierda(posSiguiente:Word;Muros:TMuro): boolean;
+ var
+   i : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ i := 1;
+   while(i <= Muros.getDimension)AND not(choqM)do
+    begin
+      if(Self.y = Muros.ObtYPosElement(i))AND(posSiguiente = Muros.ObtXPosElement(i))then
+         choqM := true;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+end.

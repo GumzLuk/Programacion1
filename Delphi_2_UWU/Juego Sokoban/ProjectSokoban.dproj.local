@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/11/08 18:21:59.000.268,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/14 13:56:25.000.274,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/14 13:56:42.000.947,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/11/14 14:03:35.000.010,C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UClassTFigura.pas</Transaction>
+    <Transaction>2024/11/14 14:03:45.000.307,C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UFormSokoban.pas</Transaction>
+    <Transaction>2024/11/14 14:03:45.000.307,C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UFormSokoban.dfm</Transaction>
+    <Transaction>2024/11/14 14:03:52.000.616,C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\ProjectSokoban.dproj</Transaction>
+    <Transaction>2024/11/16 17:24:47.000.952,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\Unit1.pas</Transaction>
+    <Transaction>2024/11/16 17:27:24.000.735,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UClasNiveles.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\Unit1.pas</Transaction>
+    <Transaction>2024/11/24 20:31:10.000.715,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\Unit1.pas</Transaction>
+    <Transaction>2024/11/24 20:31:35.000.260,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UClassMuro.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\Unit1.pas</Transaction>
+    <Transaction>2024/11/27 18:01:14.000.048,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\Unit1.pas</Transaction>
+    <Transaction>2024/11/27 18:06:32.000.946,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCMuro.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\Unit1.pas</Transaction>
+    <Transaction>2024/11/27 18:07:17.000.235,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCCaja.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCMuro.pas</Transaction>
+    <Transaction>2024/11/27 18:09:06.000.452,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCMuro.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UClassMuro.pas</Transaction>
+    <Transaction>2024/11/27 18:10:11.000.597,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCLMuro.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCMuro.pas</Transaction>
+    <Transaction>2024/11/27 18:10:30.000.502,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCLCaja.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCCaja.pas</Transaction>
+    <Transaction>2024/11/27 18:11:48.000.920,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCLFigura.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UClassTFigura.pas</Transaction>
+    <Transaction>2024/11/27 18:12:41.000.453,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCLNiveles.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UClasNiveles.pas</Transaction>
+    <Transaction>2024/11/27 21:22:10.000.688,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCLCaja.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCCaja.pas</Transaction>
+    <Transaction>2024/11/27 21:23:47.000.122,C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCLFigura.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCFigura.pas</Transaction>
+    <Transaction>2024/11/27 23:47:33.000.220,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCVector.pas</Transaction>
+    <Transaction>2024/11/27 23:47:58.000.727,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\Juego Sokoban\UCNumero.pas</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -4,7 +4,7 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 441
   ClientWidth = 624
-  Color = clBtnFace
+  Color = clGrayText
   CustomTitleBar.CaptionAlignment = taCenter
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -29,7 +29,7 @@ object Form1: TForm1
   end
   object Label2: TLabel
     Left = 248
-    Top = 187
+    Top = 213
     Width = 72
     Height = 13
     Caption = 'RESULTADO'
@@ -49,10 +49,40 @@ object Form1: TForm1
   end
   object Edit2: TEdit
     Left = 136
-    Top = 208
+    Top = 232
     Width = 305
     Height = 23
     TabOrder = 1
+  end
+  object Button1: TButton
+    Left = 336
+    Top = 120
+    Width = 105
+    Height = 25
+    Caption = 'Cargar Texto'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 336
+    Top = 272
+    Width = 105
+    Height = 25
+    Caption = 'ver Cadena'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = Button2Click
   end
   object MainMenu1: TMainMenu
     Left = 40
@@ -150,6 +180,10 @@ object Form1: TForm1
         Caption = 'SubCadXPos'
         OnClick = SubCadXPos1Click
       end
+      object ElimTodaPalabra1: TMenuItem
+        Caption = 'ElimTodaPalabra'
+        OnClick = ElimTodaPalabra1Click
+      end
     end
     object examen1: TMenuItem
       Caption = 'examen'
@@ -168,6 +202,10 @@ object Form1: TForm1
       object Examen51: TMenuItem
         Caption = 'Examen 5'
         OnClick = Examen51Click
+      end
+      object ColocarPalabras1: TMenuItem
+        Caption = 'ColocarPalabras'
+        OnClick = ColocarPalabras1Click
       end
     end
     object prueba1: TMenuItem
@@ -220,6 +258,10 @@ object Form1: TForm1
         Caption = 'MayXAlfabetParametros'
         OnClick = MayXAlfabetParametros1Click
       end
+      object SonDeIgualesLong1: TMenuItem
+        Caption = 'SonDeIgualesLong'
+        OnClick = SonDeIgualesLong1Click
+      end
     end
     object auxi21: TMenuItem
       Caption = 'auxi2'
@@ -234,6 +276,53 @@ object Form1: TForm1
       object sacarFraccion1: TMenuItem
         Caption = 'sacarFraccion'
         OnClick = sacarFraccion1Click
+      end
+      object FrecDePalabra1: TMenuItem
+        Caption = 'FrecDePalabra'
+        OnClick = FrecDePalabra1Click
+      end
+      object busqDePalabra1: TMenuItem
+        Caption = 'busqDePalabra'
+        OnClick = busqDePalabra1Click
+      end
+      object busqDePalabra21: TMenuItem
+        Caption = 'busqDePalabra 2'
+        OnClick = busqDePalabra21Click
+      end
+      object adicionarTexto1: TMenuItem
+        Caption = 'adicionarTexto'
+        OnClick = adicionarTexto1Click
+      end
+      object ObtMezclaRequerida1: TMenuItem
+        Caption = 'ObtMezclaRequerida'
+        OnClick = ObtMezclaRequerida1Click
+      end
+    end
+    object funciones1: TMenuItem
+      Caption = 'funciones'
+      object funciones2: TMenuItem
+        Caption = 'ObtMillarRomano'
+        OnClick = funciones2Click
+      end
+      object ObtCentenaRomano1: TMenuItem
+        Caption = 'ObtCentenaRomano'
+        OnClick = ObtCentenaRomano1Click
+      end
+      object ObtDecenaRomano1: TMenuItem
+        Caption = 'ObtDecenaRomano'
+        OnClick = ObtDecenaRomano1Click
+      end
+      object RomanoToDecimal1: TMenuItem
+        Caption = 'RomanoToDecimal'
+        OnClick = RomanoToDecimal1Click
+      end
+      object UnidadLiteral1: TMenuItem
+        Caption = 'UnidadLiteral'
+        OnClick = UnidadLiteral1Click
+      end
+      object LiteralToDecimal1: TMenuItem
+        Caption = 'LiteralToDecimal'
+        OnClick = LiteralToDecimal1Click
       end
     end
   end

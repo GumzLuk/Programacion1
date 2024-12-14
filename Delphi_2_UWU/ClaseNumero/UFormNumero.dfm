@@ -4,7 +4,7 @@ object Form1: TForm1
   Caption = 'Form1'
   ClientHeight = 433
   ClientWidth = 621
-  Color = clBtnFace
+  Color = clGrayText
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
@@ -26,6 +26,36 @@ object Form1: TForm1
     Width = 161
     Height = 23
     TabOrder = 1
+  end
+  object Button1: TButton
+    Left = 72
+    Top = 160
+    Width = 161
+    Height = 25
+    Caption = 'Cargar Numero'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 368
+    Top = 160
+    Width = 161
+    Height = 25
+    Caption = 'Obtener Numero'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 3
+    OnClick = Button2Click
   end
   object MainMenu1: TMainMenu
     Left = 32
@@ -186,6 +216,10 @@ object Form1: TForm1
         Caption = 'transfRealAEntero'
         OnClick = transfRealAEntero1Click
       end
+      object transfRealAEnteroCopy1: TMenuItem
+        Caption = 'transfRealAEnteroCopy'
+        OnClick = transfRealAEnteroCopy1Click
+      end
     end
     object Examen1: TMenuItem
       Caption = 'Examen'
@@ -211,6 +245,21 @@ object Form1: TForm1
       object ElimSubNumero1: TMenuItem
         Caption = 'ElimSubNumero'
         OnClick = ElimSubNumero1Click
+      end
+    end
+    object funciones1: TMenuItem
+      Caption = 'funciones'
+      object ieneExtrasLIT1: TMenuItem
+        Caption = 'TieneExtrasLIT()'
+        OnClick = ieneExtrasLIT1Click
+      end
+      object LiteralExtra1: TMenuItem
+        Caption = 'LiteralExtra'
+        OnClick = LiteralExtra1Click
+      end
+      object oLiteral2: TMenuItem
+        Caption = 'ToLiteral()'
+        OnClick = oLiteral2Click
       end
     end
   end

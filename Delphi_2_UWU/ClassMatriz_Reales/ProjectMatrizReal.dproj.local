@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/11/08 18:21:59.000.268,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/17 12:41:11.000.519,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/17 12:41:14.000.458,=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/11/17 12:46:06.000.750,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassMatriz_Reales\UClasMatrizReal.pas=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/11/17 12:46:15.000.075,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassMatriz_Reales\UFormMatriz.pas=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/11/17 12:46:15.000.075,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassMatriz_Reales\UFormMatriz.dfm=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2024/11/17 12:46:23.000.663,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassMatriz_Reales\ProjectMatrizReal.dproj=C:\Users\gumi\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2024/12/04 18:15:17.000.922,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassMatriz_Reales\UCMatrizReal.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassMatriz_Reales\UClasMatrizReal.pas</Transaction>
+    <Transaction>2024/12/10 13:11:40.000.834,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassMatriz_Reales\UCVector.pas</Transaction>
+  </Transactions>
+</BorlandProject>

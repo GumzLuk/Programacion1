@@ -1,0 +1,539 @@
+unit UCMatrizReal;
+
+interface
+ uses Math, SysUtils, Dialogs;
+ const
+   MAXF = 124;
+   MAXC = 124;
+
+  Type
+    Matriz = Class
+
+    private
+      NroFilas : Word;
+      NroColumnas : Word;
+      celdas : array[1..MAXF,1..MAXC] of Real;
+
+    public
+//procedimiento_________________________________________________________________
+      procedure CargaRandom(a,b:Word);
+      procedure RedimensionarFC(NroF:Word;NroC:Word);
+      procedure RedimensionarF(nroF:Word);
+      procedure RedimensionarC(NroC:Word);
+      procedure modCelda(NroF:Word;NroC:Word;valor:Real);
+      procedure addFila();
+      procedure addColumna();
+      procedure insertColumna(PosColumn:Word);
+      procedure insertFila(posFila:Word);
+      procedure elimFila(posFila:Word);
+      procedure elimColumna(posColumn:Word);
+      procedure IntercambiarFila(FA:Word;FB:Word);
+      procedure IntercambiarColumna(CA:Word;CB:Word);
+      procedure exchangeCeldas(FA,CA:Word;FB,CB:Word);
+      procedure QuickSortFila(FilaN:Word);
+      procedure QSortFila(FilaN:Word;i, f: Word);
+
+
+      //series fibonacci
+      procedure SerieNormalPAF();
+      procedure SerieSerpiente();
+      procedure SerieCuadradoHaciaAdentro();
+      procedure SerieSerpienteR();
+
+//funciones_____________________________________________________________________
+      function verMatriz():String;
+      function getFilas():Word;
+      function getColumnas():Word;
+      function getCelda(NroF:Word;NroC:Word):Real;
+      function sacarNumeroFilaInicio(Fila : Word):Real;
+      function sacarNumeroFilaFinal(Fila : Word):Real;
+      function sacarNumeroColumnaArriba(Columna : Word):Real;
+      function sacarNumeroColumnaAbajo(Columna : Word):Real;
+      function MaxNFilas():Real;
+      function MaxNColumnas():Real;
+      function MaxNMatriz():Real;
+    End;
+
+implementation
+
+{ Matriz }
+//procedimientos________________________________________________________________
+
+procedure Matriz.CargaRandom(a,b:Word);
+var
+  i,j : Word;
+begin
+ for i := 1 to NroFilas do
+   begin
+     for j := 1 to NroColumnas do
+       begin
+         Celdas[i,j] := a + Random((b-a)+1);
+       end;
+   end;
+end;
+
+procedure Matriz.addColumna;
+begin
+ NroColumnas := NroColumnas + 1;
+end;
+
+procedure Matriz.addFila;
+begin
+ NroFilas := NroFilas + 1;
+end;
+
+procedure Matriz.RedimensionarC(NroC: Word);
+begin
+ if(NroC >= 0)AND(NroC <= MAXC)then
+   NroColumnas := NroC;
+end;
+
+procedure Matriz.RedimensionarF(nroF: Word);
+begin
+ if(NroF >= 0)AND(NroF <= MAXF)then
+   NroFilas := NroF;
+end;
+
+procedure Matriz.RedimensionarFC(NroF, NroC: Word);
+begin
+ if(NroF > 0)AND(NroF <= MAXF)AND(NroC > 0)AND(NroC <= MAXC)then
+  begin
+   NroFilas := NroF;
+   NroColumnas := NroC;
+  end;
+end;
+
+procedure Matriz.exchangeCeldas(FA, CA, FB, CB: Word);
+ var
+   Cr : Real;
+begin
+ if(FA > 0)AND(CA > 0)AND(FB > 0)AND(CB > 0)AND(FA <= NroFilas)AND(CA <= NroColumnas)AND
+  (FB <= NroFilas)AND(CB <= NroColumnas)then
+   begin
+     Cr := celdas[FA,CA];
+     celdas[FA,CA] := celdas[FB,CB];
+     celdas[FB,CB] := Cr;
+   end;
+end;
+
+procedure Matriz.modCelda(NroF, NroC: Word ; valor : Real);
+begin
+ if(NroF > 0)AND(NroF <= NroFilas)AND(NroC > 0)AND(NroC <= NroColumnas)then
+   celdas[NroF,NroC] := valor;
+end;
+
+procedure Matriz.insertColumna(PosColumn: Word);
+ var
+   i,j : Word;
+begin
+ if(PosColumn > 0)AND(PosColumn <= NroColumnas)then
+  begin
+   addColumna;
+    for j := NroColumnas downto posColumn+1 do
+     begin
+      for i := 1 to NroFilas do
+        begin
+          celdas[i,j] := celdas[i,j-1];
+        end;
+     end;
+   for i := 1 to NroFilas do celdas[i,PosColumn] := 0;
+  end;
+end;
+
+procedure Matriz.insertFila(posFila: Word);
+ var
+   i,j : Word;
+begin
+ if(posFila > 0)AND(posFila <= NroFilas)then
+  begin
+    addFila;
+    for i := NroFilas downto PosFila+1 do
+      begin
+        for j := 1 to NroColumnas do
+          begin
+            celdas[i,j] := celdas[i-1,j];
+          end;
+      end;
+    for j := 1 to NroColumnas do celdas[posFila,j] := 0;
+  end;
+end;
+
+procedure Matriz.IntercambiarColumna(CA, CB: Word);
+ var
+  valorAux : Real;
+  i,j : Word;
+begin
+ if(CA > 0)AND(CA <= NroColumnas)AND(CB > 0)AND(CB <= NroColumnas)then
+  begin
+    for i := 1 to NroFilas do
+      begin
+        valorAux := celdas[i,CA];
+        celdas[i,CA] := celdas[i,CB];
+        celdas[i,CB] := valorAux;
+      end;
+  end;
+end;
+
+procedure Matriz.IntercambiarFila(FA, FB: Word);
+ var
+  j : Word;
+  valorAux : Real;
+begin
+ if(FA > 0)AND(FA <= NroFilas)AND(FB > 0)AND(FB <= NroFilas)then
+  begin
+   for j := 1 to NroColumnas do
+     begin
+       valorAux := celdas[FA,j];
+       celdas[FA,j] := celdas[FB,j];
+       celdas[FB,j] := valorAux;
+     end;
+  end;
+end;
+
+procedure Matriz.elimColumna(posColumn: Word);
+ var
+   i,j : Word;
+begin
+ if(posColumn > 0)AND(posColumn <= NroColumnas)then
+  begin
+    for j := posColumn to NroColumnas-1 do
+      begin
+        for i := 1 to NroFilas do
+          begin
+            celdas[i,j] := celdas[i,j+1];
+          end;
+      end;
+    NroColumnas := NroColumnas - 1;
+  end;
+end;
+
+procedure Matriz.elimFila(posFila: Word);
+ var
+   i,j : Word;
+begin
+ if(posFila > 0)AND(posFila <= NroFilas)then
+  begin
+    for i := posFila to NroFilas-1 do
+      begin
+        for j := 1 to NroColumnas do
+         begin
+           celdas[i,j] := celdas[i+1,j];
+         end;
+      end;
+    NroFilas := NroFilas - 1;
+  end;
+end;
+
+procedure Matriz.SerieNormalPAF;
+ var
+  i,j : Word;
+  a,b : Real;
+begin
+ a := 0;
+ b := 1;
+ for i := 1 to NroFilas do
+   begin
+     for j := 1 to NroColumnas do
+       begin
+        celdas[i,j] := a + b;
+        b := a;
+        a := celdas[i,j];
+       end;
+   end;
+end;
+
+procedure Matriz.SerieSerpiente;
+ var
+  i,j : Word;
+  a,b : Real;
+  sw : Boolean;
+begin
+ sw := true;
+ a := 0;
+ b := 1;
+ j := 1;
+ for j := 1 to NroColumnas do
+   begin
+    if sw  then
+     begin
+       for i := 1 to NroFilas do
+         begin
+           celdas[i,j] := a + b ;
+           b := a;
+           a := celdas[i,j];
+         end;
+       sw := false;
+     end else
+      begin
+       for i := NroFilas downto 1 do
+         begin
+           celdas[i,j] := a + b;
+           b := a;
+           a := celdas[i,j];
+         end;
+       sw := true;
+       end;
+    end;
+ end;
+
+procedure Matriz.SerieSerpienteR;
+ var
+  posx,posy,x,x1,x2,n,filN,colN,a,f,c,i : Word;
+  ban : boolean;
+begin
+ a := 1;
+ n := NroFilas + NroColumnas - 1;
+ x1 := 1;
+ x2 := 1;
+ ban := true;
+ filN := 1;
+ colN := 1;
+  for x := 1 to n do
+   begin
+    if(ban)then
+     begin
+      posx := x1;
+       for f := filN downto x2 do
+        begin
+          celdas[f,posx] := a;
+          posx := posx + 1;
+          a := a + 1;
+        end;
+       ban := false;
+     end else begin
+     if(colN = NroColumnas)then
+      x2 := x2 + 1;
+      posy := x2;
+       for c := colN downto x1 do
+        begin
+          celdas[posy,c] := a;
+          posy := posy + 1;
+          a := a + 1;
+        end;
+       ban := true;;
+     end;
+
+    if(filN < NroFilas)then
+      filN := filN + 1;
+    if(colN < NroColumnas)then
+      colN := colN + 1;
+    if(filN = NroFilas)then
+      x1 := x1 + 1;
+   end;
+end;
+
+procedure Matriz.SerieCuadradoHaciaAdentro;
+ var
+  fi,ff,ic,fc,ci,cf,a,b,c : Word;
+  i,j,k: Word;
+begin
+ i := 1;
+ j := (i + NroColumnas)div 2;
+ ic := 0;
+ fc := NroColumnas div 2;
+ ci := i;
+ cf := NroColumnas;
+ fi := ci;
+ ff := cf;
+ c := ci;
+ b := fi;
+ a := c;
+  while(i <= j)do
+   begin
+     for k := fi to ff do
+       begin
+         celdas[fi,k] := c;
+         celdas[ff,k] := c;
+       end;
+    fi := fi + 1;
+    ff := ff - 1;
+    c := a + b;
+    b := a;
+    a := c;
+      if(ic < fc)then
+       begin
+         for k := fi to ff do
+           begin
+             celdas[k,ci] := c;
+             celdas[k,cf] := c;
+           end;
+       end;
+    c := a + b;
+    b := a;
+    a := c;
+    ci := ci + 1;
+    cf := cf - 1;
+    i := i + 1;
+    ic := ic + 1;
+   end;
+end;
+
+procedure Matriz.QuickSortFila(FilaN:Word);
+begin
+ QSortFila(FilaN,1,NroColumnas);
+end;
+
+procedure Matriz.QSortFila(FilaN:Word;i, f: Word);    //solo enteros
+var
+ izq,der : Word;
+ media : Real;
+begin
+ izq := i;
+ der := f;
+ media := Trunc(celdas[FilaN,i] + celdas[FilaN,f]) div 2;
+  repeat
+    while(celdas[FilaN,i] < media)do
+        i := i + 1;
+    while(celdas[FilaN,f] > media)do
+       f := f - 1;
+    if(i <= f)then
+     begin
+      exchangeCeldas(FilaN,i,FilaN,f);
+      i := i + 1;
+      f := f - 1;
+     end;
+  until i > f;
+    if(izq  < f)then QSortFila(FilaN,izq,f);
+    if(i < der)then QSortFila(FilaN,i,der);
+end;
+
+//funciones:____________________________________________________________________
+
+function Matriz.getColumnas: Word;
+begin
+ Result := NroColumnas;
+end;
+
+function Matriz.getFilas: Word;
+begin
+ Result := NroFilas;
+end;
+
+function Matriz.getCelda(NroF, NroC: Word): Real;
+begin
+ if(NroF > 0)AND(NroF <= NroFilas)AND(NroC > 0)AND(NroC <= NroColumnas)then
+   Result := celdas[NroF,NroC];
+end;
+
+function Matriz.verMatriz: String;
+ var
+  MatrizN : String;
+  i,j : Word;
+begin
+ MatrizN := '';
+   for i := 1 to NroFilas do
+     begin
+      MatrizN := MatrizN + '| ';
+       for j := 1 to NroColumnas do
+         begin
+           MatrizN := MatrizN + FloatToStr(Self.celdas[i,j])+' ,';
+         end;
+       MatrizN := MatrizN +' |'+#10;
+     end;
+ Result := MatrizN;
+end;
+
+function Matriz.sacarNumeroFilaFinal(Fila: Word): Real;
+ var
+   j,nroC : Word;
+   NF : Real;
+begin
+ NF := 0;
+ for j := 1 to NroColumnas do
+  begin
+    NF := NF * 10 + Self.celdas[Fila,j];
+  end;
+ Result := NF;
+end;
+
+function Matriz.sacarNumeroFilaInicio(Fila: Word): Real;
+ var
+   j : Word;
+   NF : Real;
+begin
+ NF := 0;
+ for j := NroColumnas downto 1 do
+  begin
+    NF := NF * 10 + Self.celdas[Fila,j];
+  end;
+ Result := NF;
+end;
+
+function Matriz.sacarNumeroColumnaArriba(Columna: Word): Real;
+ var
+   i : Word;
+   NF : Real;
+begin
+ NF := 0;
+  for i := 1 to NroFilas do
+    begin
+      NF := NF * 10 + self.celdas[i,columna];
+    end;
+ Result := NF;
+end;
+
+function Matriz.sacarNumeroColumnaAbajo(Columna: Word): Real;
+ var
+  i : Word;
+  NF : Real;
+begin
+ NF := 0;
+  for i := NroFilas downto 1 do
+    begin
+      NF := NF * 10 + self.celdas[i,Columna];
+    end;
+ Result := NF;
+end;
+
+function Matriz.MaxNFilas: Real;
+var
+ i : Word;
+ NMayA,NMayB : Real;
+begin
+ NMayA := sacarNumeroFilaInicio(1);
+  for i := 2 to NroFilas do
+   begin
+     if(NMayA < sacarNumeroFilaInicio(i))then
+       NMayA := sacarNumeroFilaInicio(i);
+   end;
+ NMayB := sacarNumeroFilaFinal(1);
+  for i := 2 to NroFilas do
+    begin
+      if(NMayB < self.sacarNumeroFilaFinal(i))then
+        NMayB := self.sacarNumeroFilaFinal(i);
+    end;
+ if(NMayA >= NMayB)then
+  Result := NMayA
+    else Result := NMayB;
+end;
+
+function Matriz.MaxNColumnas: Real;
+ var
+   j : Word;
+   NMayA,NmayB : Real;
+begin
+ NMayA := sacarNumeroColumnaArriba(1);
+   for j := 2 to NroColumnas do
+    begin
+      if(NMayA < self.sacarNumeroColumnaArriba(j))then
+          NMayA := self.sacarNumeroColumnaArriba(j);
+    end;
+ NmayB := self.sacarNumeroColumnaAbajo(1);
+  for j := 2 to NroColumnas do
+   begin
+     if(NmayB < self.sacarNumeroColumnaAbajo(j))then
+       NmayB := self.sacarNumeroColumnaAbajo(j);
+   end;
+ if(NMayA >= NmayB)then
+  Result := NMayA
+    else Result := NmayB;
+end;
+
+function Matriz.MaxNMatriz: Real;
+begin
+ if(self.MaxNFilas > Self.MaxNColumnas)then
+  Result := self.MaxNFilas
+    else   Result := self.MaxNColumnas;
+end;
+
+end.

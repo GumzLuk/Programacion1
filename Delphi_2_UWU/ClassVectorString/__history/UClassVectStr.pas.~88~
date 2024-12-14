@@ -1,0 +1,317 @@
+unit UClassVectStr;     //Ord(char) -funcion : codigo ascii
+                        //Chr(codigo) -funcion : Char
+interface
+uses SysUtils, Dialogs, UClasCadena2;
+const MAXE = 124;
+
+ Type
+   vectorSTR = Class
+
+     private
+       elementos : array[1..MAXE]of String;
+       dimension : Word;
+     public
+//procedure_____________________________________________________________________
+       procedure setDimension(dim2:Word);
+       procedure modElement(posE:Word;eleStr:String);
+       procedure elimElement(posE:Word);
+       procedure insertElem(posE:Word;eleStr:String);
+       procedure exchangeSortLong();
+       procedure exchangeSortWord();
+       procedure QuickSortLong();
+       procedure QSortLong(i,f:Word);
+       procedure exchangeElement(posA,posB:Word);
+       procedure QuickSortWord();
+       procedure QSortWord(i,f:Word);
+       procedure ExtenderVector();
+       procedure EliminarElementMayorUnString();overload;
+       procedure EliminarElementMayorUnString(PosE:Word);overload;
+       procedure EliminarElemenRep();
+
+//function______________________________________________________________________
+       function getDimension():Word;
+       function getElement(posE:Word):String;
+       function getVector():String;
+       function longitudElem(posE:Word):Word;
+       function Obt1erCharXPos(posE:Word):Char;
+       function AumentoDimension_Extender():Word;
+
+   End;
+
+
+implementation
+
+{ vectorSTR }
+//procedure_____________________________________________________________________
+
+procedure vectorSTR.setDimension(dim2: Word);
+begin
+ if(dim2 >= 0)AND(dim2 <= MAXE)then
+   dimension := dim2;
+end;
+
+procedure vectorSTR.modElement(posE: Word; eleStr: String);
+begin
+ if(posE > 0)AND(posE <= dimension)then
+   elementos[posE] := eleStr;
+end;
+
+procedure vectorSTR.elimElement(posE: Word);
+var
+  i : Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+   begin
+     for i := posE to dimension-1 do
+       elementos[i] := elementos[i + 1];
+     dimension := dimension - 1;
+   end;
+end;
+
+procedure vectorSTR.insertElem(posE: Word; eleStr: String);
+var
+  i : Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+   dimension := dimension + 1;
+    for i := dimension to posE+1 do
+       elementos[i] := elementos[i-1];
+    elementos[posE] := eleStr;
+  end;
+end;
+
+procedure vectorSTR.exchangeElement(posA, posB: Word);
+var
+ eleR : String;
+begin
+ eleR := elementos[posA];
+ elementos[posA] := elementos[posB];
+ elementos[posB] := eleR;
+end;
+
+procedure vectorSTR.exchangeSortLong;
+var
+ i,j : Word;
+begin
+ for i := 1 to dimension-1 do
+   begin
+     for j := i+1 to dimension do
+        begin
+          if(longitudElem(i) > longitudElem(j))then
+             exchangeElement(i,j);
+        end;
+   end;
+end;
+
+procedure vectorSTR.exchangeSortWord;
+ var
+   i,j : Word;
+begin
+ for i := 1 to dimension-1 do
+   begin
+     for j := i+1 to dimension do
+       begin
+         if(Ord(Obt1erCharXPos(i)) > Ord(Obt1erCharXPos(j)))then
+            exchangeElement(i,j);
+       end;
+   end;
+end;
+
+procedure VectorSTR.QuickSortLong;
+begin
+ QSortLong(1,dimension);
+end;
+
+procedure VectorSTR.QSortLong(i, f: Word);    //solo enteros
+var
+ izq,der : Word;
+ media : Word;
+begin
+ izq := i;
+ der := f;
+ media := (longitudElem(i) + longitudElem(f)) div 2;
+  repeat
+    while(longitudElem(i) < media)do
+        i := i + 1;
+    while(longitudElem(f) > media)do
+       f := f - 1;
+    if(i <= f)then
+     begin
+      exchangeElement(i,f);
+      i := i + 1;
+      f := f - 1;
+
+     end;
+  until i > f;
+    if(izq  < f)then QSortLong(izq,f);
+    if(i < der)then QSortLong(i,der);
+end;
+
+procedure vectorSTR.QuickSortWord;
+begin
+ QSortWord(1,dimension);
+end;
+
+procedure vectorSTR.QSortWord(i, f: Word);
+var
+  derch,izq,media : Word;
+begin
+ derch := f;
+ izq := i;
+ media := (Ord(Obt1erCharXPos(i))+Ord(Obt1erCharXPos(f))) div 2;
+  repeat
+    while(Ord(Obt1erCharXPos(i)) < media)do
+      i := i + 1;
+    while(Ord(Obt1erCharXPos(f)) > media)do
+      f := f - 1;
+    if(i <= f)then
+      begin
+        exchangeElement(i,f);
+        i := i + 1;
+        f := f + 1;
+      end;
+  until i > f;
+  if(izq < f)then  QSortWord(izq,f);
+  if(i < derch)then  QSortWord(i,derch);
+end;
+
+procedure vectorSTR.EliminarElementMayorUnString;
+ var
+  cad : Cadena;
+  i : Word;
+begin
+ cad := Cadena.Create;
+ i := 1;
+  while(i <= dimension)do
+   begin
+    cad.cargarTexto(elementos[i]);
+     if(cad.CantDPal > 1)then
+       begin
+        cad.cargarTexto(cad.getPalXPos(1));
+        elementos[i] := cad.getCadena;
+       end;
+    i := i + 1;
+   end;
+end;
+
+procedure vectorSTR.EliminarElementMayorUnString(PosE: Word);
+ var
+  cad : Cadena;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+   cad := Cadena.Create;
+   cad.cargarTexto(elementos[posE]);
+   cad.cargarTexto(cad.getPalXPos(1));
+   elementos[posE] := cad.getCadena;
+  end;
+end;
+
+procedure vectorSTR.ExtenderVector;
+ var
+  cad : Cadena;
+  i,j,CopyDim,AuxCopyDim: Word;
+begin
+ cad := Cadena.Create;
+ CopyDim := dimension+1;
+ AuxCopyDim := CopyDim;
+ dimension := dimension + AumentoDimension_Extender;
+ i := 1;
+  while(i <= CopyDim)do
+   begin
+    cad.cargarTexto(elementos[i]);
+    j := 2;
+     if(cad.CantDPal > 1)then
+      begin
+        while(j <= cad.CantDPal())do
+         begin
+           elementos[AuxCopyDim] := cad.getPalXPos(j);
+           j := j + 1;
+           AuxCopyDim := AuxCopyDim + 1;
+         end;
+       EliminarElementMayorUnString(i);
+      end;
+    i := i + 1;
+   end;
+end;
+
+procedure vectorSTR.EliminarElemenRep;
+ var
+  i,j : Word;
+begin
+ i := 1;
+  while(i <= dimension-1)do
+   begin
+    j := i + 1;
+     while(j <= dimension)do
+      begin
+         if(UpperCase(elementos[i]) = UpperCase(elementos[j]))then
+          begin
+            elimElement(j);
+          end else  j := j + 1;
+      end;
+     i := i + 1;
+   end;
+end;
+
+//function______________________________________________________________________
+
+function vectorSTR.getVector: String;
+var
+  i : Word;
+  Str : String;
+begin
+ i := 1;
+ Str := '[ ';
+
+   for i := 1 to dimension do
+     Str := Str + elementos[i] + ' | ';
+ Str := Str + ' ]';
+ Result := Str;
+end;
+
+function vectorSTR.getDimension: Word;
+begin
+ Result := dimension;
+end;
+
+function vectorSTR.getElement(posE: Word): String;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+   Result := elementos[posE];
+end;
+
+function vectorSTR.longitudElem(posE: Word): Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+    Result := Length(elementos[posE]);
+end;
+
+function vectorSTR.Obt1erCharXPos(posE: Word): Char;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  Result := UpCase(elementos[posE][1]);
+end;
+
+function vectorSTR.AumentoDimension_Extender: Word;
+ var
+  cad : Cadena;
+  Aument,i : Word;
+begin
+ cad := Cadena.Create;
+ Aument := 0;
+ i := 1;
+  while(i <= dimension)do
+   begin
+     cad.cargarTexto(elementos[i]);
+      if(cad.CantDPal > 1)then
+        begin
+         Aument := Aument + cad.CantDPal - 1;
+        end;
+     i := i + 1;
+   end;
+ Result := Aument;
+end;
+
+end.

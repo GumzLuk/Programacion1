@@ -1,0 +1,696 @@
+unit UCVector;
+
+interface
+ uses SysUtils, Dialogs, UCCadena, UCNumero;
+
+ const MAXE = 1024;
+
+  Type
+    Vector = Class
+      private
+         dimension : Word;
+         elementos : array[1..MAXE]of Real;
+
+      public
+ //setters______________________________________________________________________
+          procedure addElement(elem: Real);
+          procedure setDimension(dimN : Word);
+          procedure insertElementIzquierda(posE:Word ; element:Real);
+          procedure insertElementDerecha(posE:Word; element :Real);
+          procedure modElement(posE:Word ; ele:Real);
+          procedure ElimElement(posE:Word);
+          procedure exchangeElement(posA:Word;posB:Word);
+          procedure exchangeSort();
+          procedure exchangeSortFrecuencia();
+          procedure SelectionSort();
+          procedure BubbleSort();
+          procedure ShellSort();
+          procedure MergeSort();
+          procedure MSort(i,f:Word);
+          procedure Mezcla(i,m,f:Word);
+          procedure QuickSort();
+          procedure QSort(i,f:Word);
+          procedure MezclaReverse(i,m,f:Word);
+          procedure MSortReverse(i,f:Word);
+          procedure MergeSortReverse();
+          procedure QuickSortReverse();
+          procedure QSortReverse(i,f:Word);
+          procedure OrdPrimoNoPrimo(); //Ejercicio primo Ascendente No primos Decensdentes
+          procedure Mezcla2Vectores(vect1, vect2: vector);
+          procedure OrdenarCeroYNoCero(); //Ordenar numero con cero y no cero
+          procedure pasarXParametroNuevosElems(NuevosElems:String);
+
+//getters_______________________________________________________________________
+
+          function getVector():String;
+          function getElement(posE:Word):Real;
+          function getMAXE():Word;
+          function getDim():Word;
+          function busqLineal(n:Real):Word;
+          function busqLinealOrdAsc(n:Real):Word;
+          function busqBinaria(n:Real):Word;
+          function frecDNum(n:Real):Word;
+          function numMaxFrec():Real;
+          function vectorDePrimos():Vector;
+          function vectorDeNoPrimos():Vector;
+          function NroDeNPrimos():Word;
+          function elementoPrimo(elem:Real):boolean;
+          function nextPrimo(var posP:Word):Real;
+          function EsFraccion(elem:Real):boolean;
+          function FrecDDigEnElem(elem:Real ; dig:byte):byte;
+          function ObtDate():TDateTime;
+    End;
+implementation
+
+//procedure_____________________________________________________________________
+procedure Vector.addElement(elem: Real);
+begin
+  self.dimension := self.dimension + 1;
+  elementos[dimension] := elem;
+end;
+
+procedure Vector.setDimension(dimN: Word);
+begin
+ if(dimN >= 0)AND(dimN <= MAXE)then
+    dimension := dimN;
+end;
+
+procedure Vector.ElimElement(posE: Word);
+var i : Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+   i := 1;
+    for i := posE to dimension-1 do
+      elementos[i] := elementos[i+1];
+    dimension := dimension - 1;
+  end;
+end;
+
+procedure Vector.exchangeElement(posA, posB: Word);
+var copiE:Real;
+begin
+ if(posA > 0)AND(posB > 0)AND(posA <= dimension)AND(posB <= dimension)then
+  begin
+    copiE := getElement(posA);
+    elementos[posA] := elementos[posB];
+    elementos[posB] := copiE;
+  end;
+end;
+
+procedure Vector.insertElementDerecha(posE: Word; element: Real);
+ var
+  i : Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+    self.dimension := self.dimension + 1;
+     for i := dimension downto posE+2 do
+      begin
+       elementos[i] := elementos[i-1];
+      end;
+    elementos[posE+1] := element;
+  end;
+end;
+
+procedure Vector.insertElementIzquierda(posE: Word; element: Real);
+var
+  i : Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+    self.dimension := self.dimension + 1;
+    i := self.dimension;
+     while(i >= posE+1)do
+      begin
+        elementos[i] := elementos[i-1];
+        i := i - 1;
+      end;
+    elementos[posE] := element;
+  end;
+end;
+
+procedure Vector.modElement(posE: Word; ele: Real);
+begin
+ if(posE > 0)AND(posE <= dimension)then
+     elementos[posE] := ele;
+end;
+
+procedure Vector.exchangeSort();
+var
+   i,j:Word;
+begin
+ for i := 1 to dimension-1 do
+    begin
+      for j := i+1 to dimension do
+         begin
+            if(elementos[i] > elementos[j])then
+               exchangeElement(j,i);
+         end;
+    end;
+end;
+
+procedure Vector.exchangeSortFrecuencia();
+ var
+   i,j : Word;
+begin
+ for i := 1 to dimension-1 do
+  begin
+    for j := i+1 to dimension do
+      begin
+        if(frecDNum(elementos[i]) > frecDNum(elementos[j]))then
+            exchangeElement(i,j);
+      end;
+  end;
+end;
+
+procedure Vector.selectionSort();
+var
+   j,k,i:Word;
+begin
+ for i := 1 to dimension-1 do
+   begin
+    k := i;
+     for j := i+1 to dimension do
+       begin
+         if(elementos[k] > elementos[j])then
+             k := j;
+       end;
+     if(k <> i)then
+        exchangeElement(k,i)
+   end;
+end;
+
+procedure Vector.bubbleSort();
+var
+   i,j:Word;
+begin
+ for j := dimension downto 2 do
+    begin
+      for i := 1 to j-1 do
+        begin
+          if(elementos[i] > elementos[i+1])then
+             exchangeElement(i,i+1);
+        end;
+    end;
+end;
+
+procedure Vector.shellSort;
+var
+ f,i : Word;
+ sw : boolean;
+begin
+ f := dimension div 2;
+  while(f > 0)do
+   begin
+     sw := false;
+     i := 1;
+      while(i <= dimension-f)do
+         begin
+           if(elementos[i] > elementos[i+f])then
+             begin
+               exchangeElement(i,i+f);
+               sw := true;
+             end;
+           i := i + 1;
+         end;
+      if(NOT sw)then
+        f := f div 2;
+   end;
+end;
+
+procedure Vector.MergeSort;
+begin
+ MSort(1,dimension);
+end;
+
+procedure Vector.MSort(i, f: Word);
+var m:Word;
+begin
+ if(i < f)then
+  begin
+    m := (i+f) div 2;
+    MSort(i,m);
+    MSort(m+1,f);
+    Mezcla(i,m,f);
+  end;
+end;
+
+procedure Vector.Mezcla(i, m, f: Word);
+var
+  VT:array[1..MAXE]of Real;
+  k,l,t:Word;
+  x: Word;
+begin
+ k := i;
+ l := m + 1;
+ t := 1;
+ while(k <= m)AND(l <= f)do
+  begin
+    if(elementos[k] < elementos[l])then
+      begin
+       VT[t] := elementos[k];
+       k := k + 1;
+      end else
+        begin
+         VT[t] := elementos[l];
+         l := l + 1;
+        end;
+     t := t + 1;
+  end;
+ while(k <= m)do
+   begin
+     VT[t] := elementos[k];
+     k := k + 1;
+     t := t + 1;
+   end;
+ while(l <= f)do
+   begin
+     VT[t] := elementos[l];
+     l := l + 1;
+     t := t + 1;
+   end;
+  for x := i to f do
+    begin
+     elementos[x] := VT[x-i+1];
+     t := t + 1;
+    end;
+end;
+
+procedure Vector.MezclaReverse(i, m, f: Word);
+var
+  VT:array[1..MAXE]of Real;
+  k,l,t:Word;
+  x: Word;
+begin
+ k := i;
+ l := m + 1;
+ t := 1;
+ while(k <= m)AND(l <= f)do
+  begin
+    if(elementos[k] > elementos[l])then
+      begin
+       VT[t] := elementos[k];
+       k := k + 1;
+      end else
+        begin
+         VT[t] := elementos[l];
+         l := l + 1;
+        end;
+     t := t + 1;
+  end;
+ while(k <= m)do
+   begin
+     VT[t] := elementos[k];
+     k := k + 1;
+     t := t + 1;
+   end;
+ while(l <= f)do
+   begin
+     VT[t] := elementos[l];
+     l := l + 1;
+     t := t + 1;
+   end;
+  for x := i to f do
+    begin
+     elementos[x] := VT[x-i+1];
+     t := t + 1;
+    end;
+end;
+
+procedure Vector.MSortReverse(i, f: Word);
+var m:Word;
+begin
+ if(i < f)then
+  begin
+    m := (i+f) div 2;
+    MSortReverse(i,m);
+    MSortReverse(m+1,f);
+    MezclaReverse(i,m,f);
+  end;
+end;
+
+procedure Vector.MergeSortReverse;
+begin
+ MSortReverse(1,dimension);
+end;
+
+procedure Vector.QuickSort;
+begin
+ QSort(1,dimension);
+end;
+
+procedure Vector.QSort(i, f: Word);    //solo enteros
+var
+ izq,der : Word;
+ media : Real;
+begin
+ izq := i;
+ der := f;
+ media := Trunc(elementos[i] + elementos[f]) div 2;
+  repeat
+    while(elementos[i] < media)do
+        i := i + 1;
+    while(elementos[f] > media)do
+       f := f - 1;
+    if(i <= f)then
+     begin
+      exchangeElement(i,f);
+      i := i + 1;
+      f := f - 1;
+     end;
+  until i > f;
+    if(izq  < f)then QSort(izq,f);
+    if(i < der)then QSort(i,der);
+end;
+
+procedure Vector.QuickSortReverse;
+begin
+ QSortReverse(1,dimension);
+end;
+
+procedure Vector.QSortReverse(i, f: Word);
+var
+ izq,der : Word;
+ media : Real;
+begin
+ izq := i;
+ der := f;
+ media := Trunc(elementos[i] + elementos[f]) div 2;
+  repeat
+    while(elementos[i] > media)do
+        i := i + 1;
+    while(elementos[f] < media)do
+       f := f - 1;
+    if(i <= f)then
+     begin
+      exchangeElement(i,f);
+      i := i + 1;
+      f := f - 1;
+     end;
+  until i > f;
+    if(izq  < f)then QSortReverse(izq,f);
+    if(i < der)then QSortReverse(i,der);
+end;
+
+procedure Vector.OrdPrimoNoPrimo;
+var
+  VP : vector;
+  VNoP : Vector;
+begin
+ VP := vector.Create;
+ VNoP := Vector.Create;
+ VNop := vectorDeNoPrimos();
+ VP := vectorDePrimos();
+ VP.MergeSort();
+ VNop.MergeSort();
+ Mezcla2Vectores(Vp,VnoP);
+end;
+
+procedure Vector.Mezcla2Vectores(vect1, vect2: vector);
+var i,j,x:Word;
+begin
+ x := 1;
+ setDimension(vect1.dimension + vect2.dimension);
+ for i := 1 to vect1.dimension do
+   begin
+    elementos[x] := vect1.elementos[i];
+    x := x + 1;
+   end;
+ for j := 1 to vect2.dimension do
+  begin
+   elementos[x] := vect2.elementos[j];
+   x := x + 1;
+  end;
+end;
+
+procedure Vector.OrdenarCeroYNoCero;
+ var
+  i,Nc,x: Word;
+  valorAux : Real;
+begin
+ x := 1;
+ Nc := 0;
+ i := 1;
+   while (i <= dimension) do
+    begin
+      if(FrecDDigEnElem(elementos[i],0) > 0)then
+        begin
+          Nc := Nc + 1;
+          exchangeElement(x,i);
+          x := x + 1;
+        end;
+     i := i + 1;
+    end;
+   MSort(1,Nc);
+   MSort(Nc+1,dimension);
+end;
+
+procedure Vector.pasarXParametroNuevosElems(NuevosElems: String);
+ var
+  CadenaX : Cadena;
+  i,j : Word;
+  elem : Real;
+  cambio : boolean;
+begin
+ CadenaX := Cadena.Create;
+ CadenaX.cargarTexto(NuevosElems);
+ i := 1;
+  while(i <= CadenaX.CantDPal)do
+   begin
+     elem := StrToFloat(CadenaX.getPalXPos(i));
+     j := Self.dimension;
+     cambio := false;
+       while(j >= 1)AND not(cambio)do
+        begin
+          if(elem >= elementos[j])then
+            begin
+              cambio := true;
+            end;
+          j := j - 1;
+        end;
+     if(cambio)then
+       insertElementDerecha(j+1,elem)
+         else insertElementIzquierda(1,elem);
+     i := i + 1;
+   end;
+end;
+
+//function_______________________________________________________________________
+
+function Vector.getDim: Word;
+begin
+ Result := dimension;
+end;
+
+function Vector.getElement(posE: Word): Real;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+    Result := elementos[posE];
+  end else raise Exception.Create('Error en la posicion seleccionada');
+end;
+
+function Vector.getMAXE: Word;
+begin
+ Result := MAXE;
+end;
+
+function Vector.getVector: String;
+var i:Word;
+   vect:String;
+begin
+vect := '[ ';
+ for i := 1 to dimension do
+    vect := vect + floatToStr(elementos[i])+' | ';
+ vect := vect + ' ]';
+ Result := vect;
+end;
+
+function Vector.busqLineal(n: Real): Word;
+var i:Word;
+begin
+ i := 1;
+  while(i <= dimension)and(getElement(i) <> n)do
+         i := i + 1;
+ if(i <= dimension)and(getElement(i) = n)then
+    Result := i
+      else Result := 0;
+end;
+
+function Vector.busqLinealOrdAsc(n: Real): Word;
+var i:Word;
+begin
+ i := 1;
+  while(i <= dimension)and(getElement(i) < n)do
+     i := i + 1;
+   if(i <= dimension)and(getElement(i) = n)then
+     Result := i
+       else Result := 0;
+end;
+
+function Vector.busqBinaria(n: Real): Word;
+var sup,inf,media,posE:Word;
+begin
+ inf := 1;
+ sup := dimension;
+ posE := 0;
+  while(inf<=sup)AND (posE = 0)do
+     begin
+       media := (inf+sup) div 2;
+        if(getElement(media) = n)then posE := media;
+        if(getElement(media) > n)then
+           sup := media - 1
+              else inf := media + 1;
+     end;
+ Result := posE;
+end;
+
+function Vector.frecDNum(n: Real): Word;
+var
+  i,repN:Word;
+begin
+ repN := 0;
+  for i := 1 to dimension do
+     if(elementos[i] = n)then
+        repN := repN + 1;
+ Result := repN;
+end;
+
+function Vector.FrecDDigEnElem(elem: Real; dig: byte): byte;
+ var
+  Nu : Numero;
+  NEntero : Cardinal;
+  i : Word;
+  cont : byte;
+begin
+ Nu := Numero.Create;
+ NEntero := Nu.transfRealAEnteroCopy(elem);
+ Nu.setValor(NEntero);
+ Result := Nu.FrecDeDig(dig);
+end;
+
+function Vector.numMaxFrec: Real;
+var
+  maxF : Real;
+  i,MF : Word;
+begin
+ if(dimension > 0)then
+  begin
+   maxF := getElement(1);
+   MF := frecDNum(1);
+     i := 2;
+     while(i <= dimension)do
+      begin
+        if(frecDNum(i) > MF)then begin
+            MaxF := frecDNum(i);
+            maxF := getElement(i);
+        end;
+        i := i + 1;
+      end;
+   Result := maxF;
+  end else raise Exception.Create('Error dimension no valida');
+end;
+
+function Vector.EsFraccion(elem: Real): boolean;
+begin
+ Result := not(elem = Trunc(elem));
+end;
+
+function Vector.elementoPrimo(elem:Real): boolean;
+var
+  i,cont : Word;
+begin
+ if(not EsFraccion(elem))then begin
+   i := 2;
+   cont := 0;
+    while(i <= elem-1)AND(cont = 0)do
+     begin
+       if(Trunc(elem) mod i = 0)then cont := cont + 1;
+      i := i + 1;
+     end;
+   if(cont = 0)AND(elem <> 1)then Result := true else Result := false;
+ end else Result := false;
+end;
+
+function Vector.NroDeNPrimos: Word;
+var
+ cont,i : Word;
+begin
+ cont := 0;
+ i := 1;
+  while(i <= dimension)do
+   begin
+     if(elementoPrimo(elementos[i]))then
+         cont := cont + 1;
+     i := i + 1;
+   end;
+ Result := cont;
+end;
+
+function Vector.nextPrimo(var posP: Word): Real;
+begin
+ while(posP <= dimension)AND NOT(elementoPrimo(elementos[posP]))do
+      posP := posP + 1;
+ posP := posP + 1;
+ Result := elementos[posP-1];
+end;
+
+function Vector.vectorDeNoPrimos: Vector;
+var
+    vectNoP : vector;
+    i,x: Word;
+    dimV : Word;
+begin
+ dimV := dimension-NroDeNPrimos;
+ vectNoP := Vector.Create();
+ vectNoP.dimension := dimV;
+  if(dimV > 0)then
+   begin
+     i := 1;
+     x := 1;
+      while(i <= dimV)do
+       begin
+         if not(elementoPrimo(elementos[x]))then
+           begin
+              vectNoP.elementos[i] := elementos[x];
+              i := i + 1;
+           end;
+          x := x + 1;
+       end;
+   Result := vectNoP;
+   end else Result := vectNoP;
+end;
+
+function Vector.vectorDePrimos: Vector;
+var
+ VP : Vector;
+ i,posN : Word;
+ eleP : Real;
+begin
+ VP := vector.Create;
+ VP.setDimension(NroDeNPrimos());
+ i := 1;
+ posN := 1;
+  while(i <= VP.getDim())do
+   begin
+    eleP := nextPrimo(posN);
+    VP.modElement(i,eleP);
+    i := i + 1;
+   end;
+ Result := VP;
+end;
+
+function Vector.ObtDate: TDateTime;
+var
+ dat1,dat2 : TDateTime;
+begin
+ dat1 := StrToDateTime('31/12/2004');
+ dat2 :=StrToDateTime('4/3/2004');
+ if(dat1 > dat2)then
+  Result := dat1
+   else Result := dat2;
+end;
+
+end.
+

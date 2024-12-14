@@ -1,0 +1,171 @@
+unit UCLCaja;
+
+interface
+ uses Graphics, UCLMuro, UCLFigura;
+ const MAXE = 10;
+       DISTANCIA = 32;
+
+  Type
+   Cajas = record
+      x,y : Word;
+      ImagenCaja : TBitmap;
+      widthImagen,heightImagen : Word;
+   end;
+
+    TCaja = Class
+      private
+        elementos : array[1..MAXE] of Cajas;
+        dimension : Word;
+        ImagenGeneral : Tbitmap;
+        rutaImagenGeneral : String;
+        widthGeneral,heightGeneral : Word;
+      public
+//procedimientos________________________________________________________________
+        procedure cargarImagenesCajas();
+        procedure dibujar(pantalla : TCanvas);
+        procedure CargarImagenGeneral(direccionImagen : String);
+        procedure dimensionar(dim:Word);
+        procedure SetXElement(posE:Word;xi:Word);
+        procedure SetYElement(posE:Word;yi:Word);
+        procedure cambiarXYElemento(posE:Word;xa,ya : Word);
+        procedure cambiarImagenElemento(posE:Word;rutaBMP:String);
+        procedure cambiarBmpElemento(posE:Word;nuevoBmp:TBitmap);
+
+//funciones_____________________________________________________________________
+        function ObtXElement(posE:Word):Word;
+        function ObtYElement(posE:Word):Word;
+        function choqueMuroDerecha(Muros:TMuro):boolean;
+        function choqueMuroIzquierda(Muros:TMuro):boolean;
+        function choqueMuroArriba(Muros:TMuro):boolean;
+        function choqueMuroAbajo(Muros:TMuro):boolean;
+
+        function MoverDerecha(Figura:TFigura):boolean;
+    End;
+implementation
+
+{ TCaja }
+
+//procedimientos________________________________________________________________
+
+procedure TCaja.dimensionar(dim: Word);
+begin
+ if(dim > 0)AND(dim <= MAXE)then
+   dimension := dim;
+end;
+
+procedure TCaja.CargarImagenGeneral(direccionImagen: String);
+begin
+ self.ImagenGeneral := TBitmap.Create;
+ self.rutaImagenGeneral := direccionImagen;
+ ImagenGeneral.LoadFromFile(rutaImagenGeneral);
+ widthGeneral := ImagenGeneral.Width;
+ heightGeneral := ImagenGeneral.Height;
+end;
+
+procedure TCaja.cargarImagenesCajas;
+ var
+   i : Word;
+begin
+ for i := 1 to dimension do
+   begin
+     elementos[i].ImagenCaja := TBitmap.Create;
+     elementos[i].ImagenCaja := ImagenGeneral;
+     elementos[i].widthImagen := widthGeneral;
+     elementos[i].heightImagen := heightGeneral;
+   end;
+end;
+
+procedure TCaja.dibujar(pantalla: TCanvas);
+ var
+   i : Word;
+begin
+ for i := 1 to dimension do
+  begin
+    pantalla.Draw(elementos[i].x,elementos[i].y,elementos[i].ImagenCaja);
+  end;
+end;
+
+procedure TCaja.cambiarBmpElemento(posE: Word; nuevoBmp: TBitmap);
+begin
+ if(posE > 0)AND(posE <= dimension)then
+   elementos[posE].ImagenCaja := nuevoBmp;
+end;
+
+procedure TCaja.cambiarImagenElemento(posE: Word; rutaBMP: String);
+begin
+ if(posE > 0)AND(posE <= dimension)then
+    elementos[posE].ImagenCaja.LoadFromFile(rutaBMP);
+end;
+
+procedure TCaja.cambiarXYElemento(posE, xa, ya: Word);
+begin
+ if(posE > 0)AND(posE <= dimension)then
+  begin
+   elementos[posE].x := xa;
+   elementos[posE].y := ya;
+  end;
+end;
+
+procedure TCaja.SetXElement(posE:Word;xi: Word);
+begin
+ elementos[posE].x := xi;
+end;
+
+procedure TCaja.SetYElement(posE:Word;yi: Word);
+begin
+ elementos[posE].y := yi;
+end;
+
+
+//funciones_____________________________________________________________________
+
+function TCaja.ObtXElement(posE: Word): Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+   Result := elementos[posE].x;
+end;
+
+function TCaja.ObtYElement(posE: Word): Word;
+begin
+ if(posE > 0)AND(posE <= dimension)then
+   Result := elementos[posE].y;
+end;
+
+function TCaja.choqueMuroAbajo(Muros: TMuro): boolean;
+begin
+
+end;
+
+function TCaja.choqueMuroArriba(Muros: TMuro): boolean;
+begin
+
+end;
+
+function TCaja.choqueMuroDerecha(Muros: TMuro): boolean;
+begin
+
+end;
+
+function TCaja.choqueMuroIzquierda(Muros: TMuro): boolean;
+begin
+
+end;
+
+function TCaja.MoverDerecha(Figura: TFigura): boolean;
+ var
+   i,posSiguiente : Word;
+   MovD : boolean;
+begin
+ MovD := false;
+ posSiguiente := Figura.ObtX + DISTANCIA;
+ i := 1;
+  while(i <= dimension)AND not(movD)do
+    begin
+      if(elementos[i].x = Figura.ObtX)AND(posSiguiente = elementos[i].x)then
+        MovD := true;
+      i := i + 1;
+    end;
+ Result := MovD;
+end;
+
+end.

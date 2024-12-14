@@ -3,21 +3,32 @@
 	<Transactions>
     <Transaction>2024/05/02 12:44:21.000.198,=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/05/02 12:44:31.000.402,=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
-    <Transaction>2024/05/02 12:45:30.000.588,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitClassTFile2.pas</Transaction>
-    <Transaction>2024/05/02 12:45:41.000.244,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitFormTFile2.dfm</Transaction>
-    <Transaction>2024/05/02 12:45:41.000.244,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitFormTFile2.pas</Transaction>
-    <Transaction>2024/05/02 12:45:47.000.370,C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\ProjectTFile2.dproj</Transaction>
+    <Transaction>2024/05/02 12:45:30.000.588,C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitClassTFile2.pas=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2024/05/02 12:45:41.000.244,C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitFormTFile2.pas=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/05/02 12:45:41.000.244,C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitFormTFile2.dfm=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2024/05/02 12:45:47.000.370,C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\ProjectTFile2.dproj=C:\Users\grizzly\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2024/05/02 13:00:20.000.731,=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\UnitClassCadena.pas</Transaction>
     <Transaction>2024/05/08 14:36:29.000.660,C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\Class File 2.0\UnitClassCadena.pas=</Transaction>
     <Transaction>2024/05/08 14:37:33.000.957,=C:\Users\grizzly\Documents\Programas Delphi\Class File 2.0\Class File 2.0\UnitClassCadena.pas</Transaction>
-    <Transaction>2024/10/31 20:03:15.214,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UClasCadena2.pas</Transaction>
-    <Transaction>2024/10/31 20:05:01.852,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UnitClasNumero.pas</Transaction>
+    <Transaction>2024/10/31 20:03:15.000.214,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UClasCadena2.pas</Transaction>
+    <Transaction>2024/10/31 20:05:01.000.852,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UnitClasNumero.pas</Transaction>
+    <Transaction>2024/11/07 14:29:17.000.248,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UnitClasNumero.pas=</Transaction>
+    <Transaction>2024/11/07 14:29:22.000.138,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UClasCadena2.pas=</Transaction>
+    <Transaction>2024/11/07 14:30:32.000.466,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UClasCadena2.pas</Transaction>
+    <Transaction>2024/11/07 15:36:04.000.016,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UnitClasNumero.pas</Transaction>
+    <Transaction>2024/12/04 10:53:56.000.541,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UnitClassTFile2.pas=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UCTFile.pas</Transaction>
+    <Transaction>2024/12/04 18:36:56.000.071,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UClasCadena2.pas=</Transaction>
+    <Transaction>2024/12/04 18:37:03.000.009,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UnitClasNumero.pas=</Transaction>
+    <Transaction>2024/12/04 18:38:33.000.118,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UCCadena.pas</Transaction>
+    <Transaction>2024/12/04 18:38:42.000.056,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UCNumero.pas</Transaction>
+    <Transaction>2024/12/04 19:32:47.000.479,C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UCCadena.pas=</Transaction>
+    <Transaction>2024/12/04 19:32:59.000.916,=C:\Users\gumi\Documents\programas\Delphi_2_UWU\ClassArchivo\UCCadena.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
-    <File Path="UnitClassTFile2.pas"/>
+    <File Path="UCTFile.pas"/>
     <File Path="UnitFormTFile2.pas"/>
     <File Path="UnitFormTFile2.dfm"/>
-    <File Path="UClasCadena2.pas"/>
-    <File Path="UnitClasNumero.pas"/>
+    <File Path="UCNumero.pas"/>
+    <File Path="UCCadena.pas"/>
   </ProjectSortOrder>
 </BorlandProject>

@@ -1,9 +1,0 @@
-program ConsolaPr;
-
-uses
-  System.SysUtils,
-  UClassPr in 'UClassPr.pas';
-
-begin
-  Readln;
-end.

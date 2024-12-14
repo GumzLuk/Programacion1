@@ -3,7 +3,7 @@ program ProjectNumero;
 uses
   Vcl.Forms,
   UFormNumero in 'UFormNumero.pas' {Form1},
-  UnitClasNumero in 'UnitClasNumero.pas';
+  UCNumero in 'UCNumero.pas';
 
 {$R *.res}
 

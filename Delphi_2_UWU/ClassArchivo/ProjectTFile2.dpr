@@ -3,9 +3,9 @@ program ProjectTFile2;
 uses
   Vcl.Forms,
   UnitFormTFile2 in 'UnitFormTFile2.pas' {Form1},
-  UnitClassTFile2 in 'UnitClassTFile2.pas',
-  UClasCadena2 in 'UClasCadena2.pas',
-  UnitClasNumero in 'UnitClasNumero.pas';
+  UCTFile in 'UCTFile.pas',
+  UCNumero in 'UCNumero.pas',
+  UCCadena in 'UCCadena.pas';
 
 {$R *.res}
 

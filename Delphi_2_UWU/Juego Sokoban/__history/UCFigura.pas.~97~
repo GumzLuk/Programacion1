@@ -1,0 +1,332 @@
+unit UCFigura;
+
+interface
+ uses Graphics,SysUtils, Dialogs, UCLMuro, UCCaja;
+
+ const
+    DISTANCIA = 32;
+  Type
+    TFigura = Class
+      private
+         widthFigura,heigthFigura : Word;
+         direccionMov : Word;
+         x,y : Word;
+         skin : TBitmap;
+     public
+         constructor createFigura(xi,yi:Word);
+//procedimientos________________________________________________________________
+         procedure cargarImagen(rutaImagen:String);
+         procedure dibujar(pantalla:TCanvas);
+         procedure SetX(xi:Word);
+         procedure SetY(yi:Word);
+         procedure CambiarPosicion(x,y:Word);
+         procedure SetDireccionMov(direc:Word);
+
+//funciones_____________________________________________________________________
+         function ObtDireccionMov():Word;
+         function ObtX():Word;
+         function ObtY():Word;
+         function ObtAnchoFigura():Word;
+         function ObtAlturaFigura():Word;
+         function choqueMuroDerecha(Muros:TMuro):boolean;
+         function choqueMuroIzquierda(Muros:TMuro):boolean;
+         function choqueMuroArriba(Muros:TMuro):boolean;
+         function choqueMuroAbajo(Muros:TMuro):boolean;
+         function choqueCajasDerecha(Cajas:TCaja):boolean;
+         function choqueCajasIzquierda(Cajas: TCaja): boolean;
+         function choqueCajasArriba(Cajas: TCaja): boolean;
+         function choqueCajasAbajo(Cajas: TCaja): boolean;
+         function MovDerechaMuro(posEM:Word;Muros: TMuro): boolean;
+         function MovIzquierdaMuro(posEM:Word;Muros: TMuro): boolean;
+         function MovAbajoMuro(posEM: Word; Muros: TMuro): boolean;
+         function MovArribaMuro(posEM: Word; Muros: TMuro): boolean;
+         function AnchoAlturaFiguraMovDerecha():Word;
+         function AnchoAlturaFiguraMovIzquierda: Word;
+         function AnchoAlturaFiguraMovAbajo: Word;
+         function AnchoAlturaFiguraMovArriba: Word;
+    End;
+
+implementation
+
+{ TFigura }
+
+constructor TFigura.createFigura(xi, yi: Word);
+begin
+ Self.x := xi;
+ Self.y := yi;
+end;
+
+//procedimientos________________________________________________________________
+
+procedure TFigura.cargarImagen(rutaImagen: String);
+begin
+ skin := TBitmap.Create;
+ skin.LoadFromFile(rutaImagen);
+ widthFigura := skin.Width;
+ heigthFigura := skin.Height;
+ {transparencia}
+ skin.Transparent := true;
+ skin.TransparentColor := skin.Canvas.Pixels[1,1];
+end;
+
+procedure TFigura.dibujar(pantalla:TCanvas);
+begin
+ pantalla.Draw(x,y,skin);
+end;
+
+procedure TFigura.CambiarPosicion(x, y: Word);
+begin
+ Self.x := x;
+ Self.y := y;
+end;
+
+procedure TFigura.SetDireccionMov(direc: Word);
+begin
+ self.direccionMov := direc;
+end;
+
+procedure TFigura.SetX(xi: Word);
+begin
+ self.x := xi;
+end;
+
+procedure TFigura.SetY(yi: Word);
+begin
+ Self.y := yi;
+end;
+
+//funciones_____________________________________________________________________
+
+function TFigura.ObtX: Word;
+begin
+ Result := x;
+end;
+
+function TFigura.ObtY: Word;
+begin
+ Result := y;
+end;
+
+function TFigura.ObtAlturaFigura: Word;
+begin
+ Result := (y + heigthFigura);
+end;
+
+function TFigura.ObtAnchoFigura: Word;
+begin
+ Result := (x + widthFigura);
+end;
+
+{_____Choques de figura con el muro________}
+
+function TFigura.choqueMuroAbajo(Muros:TMuro): boolean;
+ var
+   i : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ i := 1;
+   while(i <= Muros.getDimension)AND not(choqM)do
+    begin
+      if(MovAbajoMuro(i,Muros))then
+         choqM := true;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+function TFigura.choqueMuroArriba(Muros:TMuro): boolean;
+ var
+   i : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ i := 1;
+   while(i <= Muros.getDimension)AND not(choqM)do
+    begin
+      if(MovArribaMuro(i,Muros))then
+         choqM := true;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+function TFigura.choqueMuroDerecha(Muros:TMuro): boolean;
+ var
+   i : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ i := 1;
+   while(i <= Muros.getDimension)AND not(choqM)do
+    begin
+      if(MovDerechaMuro(i,Muros))then
+         choqM := true;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+function TFigura.choqueMuroIzquierda(Muros:TMuro): boolean;
+ var
+   i: Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ i := 1;
+   while(i <= Muros.getDimension)AND not(choqM)do
+    begin
+      if(MovIzquierdaMuro(i,Muros))then
+         choqM := true;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+function TFigura.ObtDireccionMov(): Word;
+begin
+ Result := direccionMov;
+end;
+
+{____Choques con las cajas________}
+
+function TFigura.choqueCajasDerecha(Cajas: TCaja): boolean;
+ var
+   i,posSiguiente : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ posSiguiente := x + DISTANCIA;
+ i := 1;
+   while(i <= Cajas.getDimension)AND not(choqM)do
+    begin
+     if(Self.y = Cajas.ObtYElement(i))AND(posSiguiente = Cajas.ObtXElement(i))AND(ObtAlturaFigura = (cajas.ObtHeigthElement(i)+cajas.ObtYElement(i)))then
+      begin
+         choqM := true;
+         Cajas.SetCajaMov(Cajas.ObtNroXCaja(i));
+      end;
+      i := i + 1;
+    end;
+ // ShowMessage(inttostr(Cajas.ObtNroXCaja(i-1)));
+ Result := choqM;
+end;
+
+function TFigura.choqueCajasIzquierda(Cajas: TCaja): boolean;
+ var
+   i,posSiguiente : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ posSiguiente := x - DISTANCIA;
+ i := 1;
+   while(i <= Cajas.getDimension)AND not(choqM)do
+    begin
+     if(Self.y = Cajas.ObtYElement(i))AND(posSiguiente = Cajas.ObtXElement(i))then
+      begin
+         choqM := true;
+         Cajas.SetCajaMov(i);
+      end;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+function TFigura.choqueCajasAbajo(Cajas: TCaja): boolean;
+ var
+   i,posSiguiente : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ posSiguiente := y + DISTANCIA;
+ i := 1;
+   while(i <= Cajas.getDimension)AND not(choqM)do
+    begin
+     if(Self.x = Cajas.ObtXElement(i))AND(posSiguiente = Cajas.ObtYElement(i))then
+      begin
+         choqM := true;
+         Cajas.SetCajaMov(i);
+      end;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+{____Verifica si choca con muros_____}
+
+function TFigura.choqueCajasArriba(Cajas: TCaja): boolean;
+ var
+   i,posSiguiente : Word;
+   choqM : boolean;
+begin
+ choqM := false;
+ posSiguiente := y - DISTANCIA;
+ i := 1;
+   while(i <= Cajas.getDimension)AND not(choqM)do
+    begin
+     if(Self.x = Cajas.ObtXElement(i))AND(posSiguiente = Cajas.ObtYElement(i))then
+      begin
+         choqM := true;
+         Cajas.SetCajaMov(i);
+      end;
+      i := i + 1;
+    end;
+ Result := choqM;
+end;
+
+function TFigura.MovDerechaMuro(posEM:Word;Muros: TMuro): boolean;
+begin
+ if((self.y = Muros.ObtYPosElement(posEM))AND((self.x+32) = Muros.ObtXPosElement(posEM))AND
+   (AnchoAlturaFiguraMovDerecha = Muros.AnchoAlturaMuros(posEM)))then
+    Result := true
+      else
+         Result := false;
+end;
+
+function TFigura.MovIzquierdaMuro(posEM: Word; Muros: TMuro): boolean;
+begin
+ if((self.y = Muros.ObtYPosElement(posEM))AND((self.x-32) = Muros.ObtXPosElement(posEM))AND
+   (AnchoAlturaFiguraMovIzquierda = Muros.AnchoAlturaMuros(posEM)))then
+    Result := true
+      else
+         Result := false;
+end;
+
+function TFigura.MovAbajoMuro(posEM: Word; Muros: TMuro): boolean;
+begin
+ if(((self.y+DISTANCIA) = Muros.ObtYPosElement(posEM))AND((self.x) = Muros.ObtXPosElement(posEM))AND
+   (AnchoAlturaFiguraMovAbajo = Muros.AnchoAlturaMuros(posEM)))then
+    Result := true
+      else
+         Result := false;
+end;
+
+function TFigura.MovArribaMuro(posEM: Word; Muros: TMuro): boolean;
+begin
+ if(((self.y-DISTANCIA) = Muros.ObtYPosElement(posEM))AND((self.x) = Muros.ObtXPosElement(posEM))AND
+   (AnchoAlturaFiguraMovArriba = Muros.AnchoAlturaMuros(posEM)))then
+    Result := true
+      else
+         Result := false;
+end;
+
+function TFigura.AnchoAlturaFiguraMovDerecha: Word;
+begin
+  Result :=((ObtAnchoFigura+DISTANCIA)+ObtAlturaFigura);
+end;
+
+function TFigura.AnchoAlturaFiguraMovIzquierda: Word;
+begin
+ Result := ((ObtAnchoFigura-DISTANCIA)+ObtAlturaFigura);
+end;
+
+function TFigura.AnchoAlturaFiguraMovAbajo: Word;
+begin
+ Result := (ObtAnchoFigura+(ObtAlturaFigura+DISTANCIA));
+end;
+
+function TFigura.AnchoAlturaFiguraMovArriba: Word;
+begin
+ Result := (ObtAnchoFigura+(ObtAlturaFigura-DISTANCIA));
+end;
+{_________}
+end.
